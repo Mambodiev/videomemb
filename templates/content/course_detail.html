@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class='container'>
+        <div class="course_detail_row">
+            <div class="course_detail_column course_detail_left" >
+                {% include 'content/snippets/video_step.html' with video=video %}
+            </div>
+            <div class="course_detail_column course_detail_right" >
+                <img src="{{ object.thumbnail.url }}" alt="step">
+                <p>{{ object.description|safe }}</p>
+            </div>
+        </div>
+    </div> 
+{% endblock content %}

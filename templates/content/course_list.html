@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% comment %} <div class='container'> {% endcomment %}
+    <div class="training_options">
+        <div class="training">
+            <img class='responsive' src="{% static 'images/fitness_website_option3.jpg' %}">
+            <div class="text">Training Options</div>
+        </div>
+    </div>
+{% comment %} </div> {% endcomment %}
+<div class='container'>
+    <p class='title_option'>Workout Plan</p>
+</div>
+<div class='container'>
+    <div class="grid-container">
+        {% for course in object_list %}
+        <div class="item1">
+            <a href="{{ course.get_absolute_url }}">
+            <img src="{{ course.thumbnail.url }}">
+            <h1>{{ course.name }}</h1>
+            <p>{{ course.description|safe}}</p><br>
+            <button class="got_course got_course1">Got to<span> Course</span></button>
+
+            </a>
+        </div>
+        {% endfor %}  
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,44 @@
+
+ 
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block head_title %}{% endblock head_title %}</title>
+    <meta name="description" content="{% block description %} Home description  {% endblock %}">
+    <meta name="keywords" content="{% block keywords %} Home Keywords {% endblock %}">
+    {% block extra_head %}
+    {% endblock extra_head %}
+    <link rel="icon"
+      href="{% static 'favicons/favicon.ico' %}">
+    <link rel="stylesheet"
+      href="{% static 'css/style.css' %}">
+    {% comment %} <link href="{% static 'css/tailwind.min.css' %}" rel="stylesheet"> {% endcomment %}
+</head>
+{% include 'navbar.html' %}
+<body>
+    {% if messages %}
+      {% for message in messages %}
+      <div class="container">
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+            {{ message }}
+          </div>
+      </div>
+      {% endfor %}
+    {% endif %}
+    {% block content %}
+
+    {% endblock content %}
+
+    {% block extra_body %}
+    {% endblock %}
+
+{% include 'footer.html' %}
+{% block javascript %}
+{% endblock javascript %}
+</body>
+</html>
