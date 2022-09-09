@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between my-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ object.title }}</h1>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+        </div>
+        <div class="row">
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <img src="{{ product.thumbnail.url }}" class="img-fluid" alt="...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card h-100 p-3">
+                    <div class="row py-1 border-bottom">
+                        <div class="col mr-2">
+                            <h6>Ads Text & Links</h6>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fa-brands fa-square-facebook"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-pie pt-4 pb-2">
+                            {{ object.ads_links|safe|truncatewords:30 }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card h-100 p-3">
+                    <div class='row py-1 border-bottom'>
+                        <h6>Engagements</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-bar pt-4 pb-2">
+                           <canvas id="myBarChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card h-100 p-3">
+                    <div class='row py-1 border-bottom'>
+                        <h6>Ads Profit & Cost</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-pie pt-4 pb-2">
+                            <div class="d-flex justify-content-between">
+                                <div class="col text-center">
+                                    <p class="card-subtitle m-2 text-muted fw-lighter">Price</p>
+                                    <div class="h5 mb-1 font-weight-bold">$40,00</div>
+                                </div>
+                                <div class="col text-center">
+                                    <p class="card-subtitle m-2 text-muted fw-lighter">Cost</p>
+                                    <div class="h5 mb-1 font-weight-bold text-danger">
+                                        $4,00</div>
+                                </div>
+                                <div class="col text-center">
+                                    <p class="card-subtitle m-2 text-muted fw-lighter">Margin</p>
+                                    <div class="h5 mb-1 font-weight-bold text-success">
+                                        $40,00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card h-100 p-3">
+                    <div class='row py-1 border-bottom'>
+                        <h6 class="">Links to others stores</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-pie pt-4 pb-2">
+                            {{ object.ads_links|safe|truncatewords:100 }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card h-100 p-3">
+                    <div class='row py-1 border-bottom'>
+                        <h6 class="">Countries</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-pie pt-4 pb-2">
+                            <canvas id="myPieChart"></canvas>
+                        </div>
+                        <div class="mt-4 text-center small">
+                            <span class="mr-2">
+                                <i class="fas fa-circle text-primary"></i> Direct
+                            </span>
+                            <span class="mr-2">
+                                <i class="fas fa-circle text-success"></i> Social
+                            </span>
+                            <span class="mr-2">
+                                <i class="fas fa-circle text-info"></i> Referral
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card h-100 p-3">
+                    <div class='row py-1 border-bottom'>
+                        <h6>Suppliers Links</h6>
+                    </div>
+                    <div class="card-body">
+                        {{ object.ads_links|safe|truncatewords:100 }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card h-100 p-3">
+                    <div class='row py-1 border-bottom'>
+                        <h6 class="">Ages</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-pie pt-4 pb-2">
+                            <canvas id="myPieChart"></canvas>
+                        </div>
+                        <div class="mt-4 text-center small">
+                            <span class="mr-2">
+                                <i class="fas fa-circle text-primary"></i> Direct
+                            </span>
+                            <span class="mr-2">
+                                <i class="fas fa-circle text-success"></i> Social
+                            </span>
+                            <span class="mr-2">
+                                <i class="fas fa-circle text-info"></i> Referral
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card h-100 p-3">
+                    <div class='row py-1 border-bottom'>
+                        <h6 class="">Sexe</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-pie pt-4 pb-2">
+                            <canvas id="myPieChart"></canvas>
+                        </div>
+                        <div class="mt-4 text-center small">
+                            <span class="mr-2">
+                                <i class="fas fa-circle text-primary"></i> Direct
+                            </span>
+                            <span class="mr-2">
+                                <i class="fas fa-circle text-success"></i> Social
+                            </span>
+                            <span class="mr-2">
+                                <i class="fas fa-circle text-info"></i> Referral
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div> 
+{% endblock content %}
