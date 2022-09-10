@@ -29,24 +29,22 @@
 </div> {% endcomment %}
 <div class="d-sm-flex align-items-center justify-content-between my-4">
     <h1 class="h3 mb-0 text-gray-800">Product</h1>
-    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+    <a href="#" class="d-none d-sm-inline-block btn btn-smshadow-sm"  style="background-color: #f2f6fc;><i
     class="fas fa-download fa-sm text-white-50"></i> Filter</a>
 </div>
 <div class="row">
     {% for product in object_list %}
         <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 ">
+            <div class="card border-left-primary h-100 ">
                 
-                <div class="card-body px-2">
+                <div class="card-body shadow-sm  bg-body rounded rounded-1 p-2">
                     <div class="row no-gutters align-items-center">
                         <img src="{{ product.thumbnail.url }}" class="img-fluid" alt="...">
-                        <div class="col mr-2  mt-2">
+                        <div class="d-flex justify-content-between">
                             <a href="{{ product.get_absolute_url }}">
-                                <h1 class="text-xs font-weight-bold text-uppercase mb-1">{{ product.title }}</h1>
+                                <h1 class="text-xs font-weight-bold text-uppercase my-1">{{ product.title }}</h1>
                             </a>
-                        </div>
-                        <div class="col-auto">
-                            <a href="{{ product.links_ads }}" target="_blank">
+                            <a href="{{ product.links_to_ads }}" target="_blank">
                                 {% if product.is_faceBook %}
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
                                     <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
@@ -64,8 +62,8 @@
                                 {% endif %}
                             </a>
                         </div>
-                        <a href="{{ product.get_absolute_url }}">
-                            <p class="text-muted fw-lighter float-start mb-1">Buy with us</p>
+                        <a href="{{ product.links_to_a_single_store }}" target="_blank">
+                            <p class="text-muted fw-lighter float-start mb-1 text-capitalize">{{ product.store_name }}</p>
                         </a>
                         <div class="d-flex justify-content-between">
                             <p class="card-subtitle mb-1 text-muted fw-lighter">
@@ -96,7 +94,6 @@
                                 <div class="text-xs font-weight-bold ">2k</div>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
                

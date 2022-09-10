@@ -88,7 +88,7 @@ body {
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  background: #f2f6fc !important;
+  /* background: #f2f6fc !important; */
   color: #212121!important;
   font-family: 'Montserrat', 'Lato', 'Roboto', sans-serif;
 }
@@ -2197,7 +2197,7 @@ progress {
   font-weight: 400;
   line-height: 1.5;
   color: #212529;
-  background-color: #f2f6fc;
+  /* background-color: #f2f6fc; */
   background-clip: padding-box;
   border: 1px solid #212121;
   -webkit-appearance: none;
@@ -4533,9 +4533,9 @@ textarea.form-control-lg {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #f2f6fc;
+  /* background-color: #f2f6fc; */
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  /* border: 1px solid rgba(0, 0, 0, 0.125); */
   border-radius: 0.25rem;
 }
 .card > hr {
