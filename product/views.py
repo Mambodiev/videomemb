@@ -1,6 +1,8 @@
 from django.views import generic
 from django.shortcuts import get_object_or_404
 from .models import Product
+from .filters import ProductFilter
+
 
 class BlogListView(generic.ListView):
     template_name = "blog/blog_list.html"
@@ -9,6 +11,8 @@ class BlogListView(generic.ListView):
 class ProductListView(generic.ListView):
     template_name = "product/product_list.html"
     queryset = Product.objects.all()
+    filter_set = ProductFilter
+
 
 
 class ProductDetailView(generic.DetailView):

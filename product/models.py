@@ -52,10 +52,17 @@ class Category(models.Model):
         ('power tools', 'Power Tools'),
         ('hardware tools', 'Hardware Tools'),
     ]
-    name = models.CharField(max_length=100, choices=categories_options, default='general')
+    name = models.CharField(max_length=100, choices=categories_options)
 
     class Meta:
         verbose_name_plural = "Categories"
+
+    def __str__(self):
+        return self.name
+
+
+class Age(models.Model):
+    age = models.IntegerField(blank=True, null=True, help_text = "ads age group range")
 
     def __str__(self):
         return self.name
@@ -106,7 +113,7 @@ class Product(models.Model):
         ('instagram', 'Instagram'),
         ('Tiktok', 'Tiktok'),
     ]
-    option_media = [
+    option_ads_type = [
         ('video', 'Video'),
         ('photo', 'Photo'),
         ('both', 'Both'),
@@ -298,7 +305,7 @@ class Product(models.Model):
         ('Argentina', 'Argentina'),
         ('Mexico', 'Mexico'),
     ]
-    shop_type_name_options = [
+    technology_options = [
         ('shopify', 'Shopify'),
         ('wooCommerce', 'WooCommerce'),
         ('cart functionality', 'Cart Functionality'),
@@ -350,74 +357,37 @@ class Product(models.Model):
         ('xtcommerce', 'xtCommerce'),
         ('ec-cube', 'EC-CUBE'),
     ]
-    # categories_options = [
-    #     ('art', 'Art'),
-    #     ('automobliles & motorcycles', 'Automobliles & Motorcycles'),
-    #     ('beauty & health', 'Beauty & Health'),
-    #     ('camping & hiking', 'Camping & Hiking'),
-    #     ('cellphones & telecommunications', 'Cellphones & Telecommunications'),
-    #     ('computer & office', 'Computer & Office'),
-    #     ('consumer electronics', 'Consumer Electronics'),
-    #     ('festive & party suppliers', 'Festive & Party Suppliers'),
-    #     ('home & garden', 'Home & Garden'),
-    #     ('home improvement', 'Home Improvement'),
-    #     ('jewelry & accessories', 'Jewelry & Accessories'),
-    #     ('lights & lighting', 'Lights & Lighting'),
-    #     ('luggage & bags', 'luggage & bags'),
-    #     ("men's clothing & acccessories", "Men's Clothing & Acccessories"),
-    #     ('mother & kids', 'Mother & Kids'),
-    #     ('novelty & special use', 'Novelty & Special Use'),
-    #     ('office & school supplies', 'Office & School Supplies'),
-    #     ('pet products', 'Pet Products'),
-    #     ('phones & telecommunications', 'Phones & Telecommunications'),
-    #     ('security & protection', 'Security & Protection'),
-    #     ('shoes', 'Shoes'),
-    #     ('sports & entertainment', 'Sports & Entertainment'),
-    #     ('toys & hobbies', 'Toys & Hobbies'),
-    #     ('watches', 'Watches'),
-    #     ("women's clothing & accessories", "Women's Clothing & Accessories"),
-    #     ("women's shoes", "Women's Shoes"),
-    #     ('general', 'General'),
-    #     ('gaming', 'Gaming'),
-    #     ('kitchen', 'Kitchen'),
-    #     ('sewing', 'Sewing'),
-    #     ('health', 'Health'),
-    #     ('gifts', 'Gifts'),
-    #     ('travel', 'Travel'),
-    #     ('fishing', 'Fishing'),
-    #     ('furniture', 'Furniture'),
-    #     ('christmas', 'Christmas'),
-    #     ('DIY', 'DIY'),
-    #     ('baby', 'Baby'),
-    #     ('wood working', 'Wood Working'),
-    #     ('power tools', 'Power Tools'),
-    #     ('hardware tools', 'Hardware Tools'),
-    # ]
-    
+   
+   
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
     thumbnail = models.ImageField(upload_to="thumbnails/", default='products/default.jpg')
-    image_store = models.ImageField(upload_to="image_store/", default='products/default.jpg')
+    image_store = models.ImageField(upload_to="image_store/",default='products/default.jpg',
+        blank=True)
     likes = models.IntegerField(default=0, help_text = "Amount of likes generated")
-    product_cost = models.IntegerField(default=0, help_text = "Price pay to buy this product")
+    comment = models.IntegerField(default=0, help_text = "Amount of comment generated")
+    price = models.IntegerField(default=0, help_text = "Price pay to buy this product")
     product_selling_price = models.IntegerField(default=0, help_text = "Price you can sell this product")
     product_margin = models.IntegerField(default=0, help_text = "Profit you get from this product")
     product_vimeo_id = models.CharField(max_length=50, blank=True, null=True,) 
     category = models.ForeignKey(
-        Category, on_delete=models.PROTECT, default='general')
+        Category, on_delete=models.PROTECT)
+    age = models.ForeignKey(
+        Age, on_delete=models.PROTECT)
     last_seen = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
-    country = models.CharField(max_length=100, choices=country_choices, default='United States')
-    social_media_name = models.CharField(max_length=250, choices=option_ads, default='faceBook')
+    countries = models.CharField(max_length=100, choices=country_choices, default='United States')
+    site_type = models.CharField(max_length=250, choices=option_ads_type, default='faceBook')
+    media_type = models.CharField(max_length=250, choices=option_ads, default='video')
     gender = models.CharField(max_length=250, choices=gender_options, default='Male or Female')
-    shop_type_name = models.CharField(max_length=250, choices=shop_type_name_options, default='Shopify')
-    language_the_ads = models.CharField(max_length=250, choices=option_language, default='English')
+    technology = models.CharField(max_length=250, choices=technology_options, default='Shopify')
+    language= models.CharField(max_length=250, choices=option_language, default='English')
     button = models.CharField(max_length=250, choices=option_button, default='Shop Now')
     store_name = models.CharField(max_length=500, help_text = "store or ads name",  blank=True, null=True,)
-    links_to_ads = models.CharField(max_length=500, help_text = "A link that will take to ads", default='#')
-    links_to_a_single_store = models.CharField(max_length=500, help_text = "A link that will take to a single the store", default='#')
+    links_to_ads = models.CharField(max_length=500, help_text = "A link that will take to ads")
+    links_to_a_single_store = models.CharField(max_length=500, help_text = "A link that will take to a single the store")
     text_that_comes_with_ads = RichTextUploadingField(blank=True, null=True)
-    links_to_others_stores = RichTextUploadingField(blank=True, null=True,help_text = "A link that will take to the store", default='#')
+    links_to_others_stores = RichTextUploadingField(blank=True, null=True,help_text = "A link that will take to the store", )
     links_to_others_suppliers = RichTextUploadingField(blank=True, null=True,)
     is_faceBook = models.BooleanField(default=False)
     is_instagram = models.BooleanField(default=False)
@@ -426,6 +396,15 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse("product:product-detail", kwargs={"slug": self.slug})
         
+
+    @property
+    def imageURL(self):
+        try:
+            url = self.image_store.url
+        except:
+            url = ''
+        print('URL:', url)
+        return url
 
 
 # class Video(models.Model):
