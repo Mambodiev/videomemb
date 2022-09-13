@@ -9,6 +9,106 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class Category(models.Model):
+    # categories_options = [
+    #     ('art', 'Art'),
+    #     ('automobliles & motorcycles', 'Automobliles & Motorcycles'),
+    #     ('beauty & health', 'Beauty & Health'),
+    #     ('camping & hiking', 'Camping & Hiking'),
+    #     ('cellphones & telecommunications', 'Cellphones & Telecommunications'),
+    #     ('computer & office', 'Computer & Office'),
+    #     ('consumer electronics', 'Consumer Electronics'),
+    #     ('festive & party suppliers', 'Festive & Party Suppliers'),
+    #     ('home & garden', 'Home & Garden'),
+    #     ('home improvement', 'Home Improvement'),
+    #     ('jewelry & accessories', 'Jewelry & Accessories'),
+    #     ('lights & lighting', 'Lights & Lighting'),
+    #     ('luggage & bags', 'luggage & bags'),
+    #     ("men's clothing & acccessories", "Men's Clothing & Acccessories"),
+    #     ('mother & kids', 'Mother & Kids'),
+    #     ('novelty & special use', 'Novelty & Special Use'),
+    #     ('office & school supplies', 'Office & School Supplies'),
+    #     ('pet products', 'Pet Products'),
+    #     ('phones & telecommunications', 'Phones & Telecommunications'),
+    #     ('security & protection', 'Security & Protection'),
+    #     ('shoes', 'Shoes'),
+    #     ('sports & entertainment', 'Sports & Entertainment'),
+    #     ('toys & hobbies', 'Toys & Hobbies'),
+    #     ('watches', 'Watches'),
+    #     ("women's clothing & accessories", "Women's Clothing & Accessories"),
+    #     ("women's shoes", "Women's Shoes"),
+    #     ('general', 'General'),
+    #     ('gaming', 'Gaming'),
+    #     ('kitchen', 'Kitchen'),
+    #     ('sewing', 'Sewing'),
+    #     ('health', 'Health'),
+    #     ('gifts', 'Gifts'),
+    #     ('travel', 'Travel'),
+    #     ('fishing', 'Fishing'),
+    #     ('furniture', 'Furniture'),
+    #     ('christmas', 'Christmas'),
+    #     ('DIY', 'DIY'),
+    #     ('baby', 'Baby'),
+    #     ('wood working', 'Wood Working'),
+    #     ('power tools', 'Power Tools'),
+    #     ('hardware tools', 'Hardware Tools'),
+    # ]
+    name = models.CharField(max_length=100,)
+
+    class Meta:
+        verbose_name_plural = "Categories"
+
+    def __str__(self):
+        return self.name
+
+
+class Age(models.Model):
+    age = models.IntegerField(blank=True, null=True, help_text = "ads age group range")
+    # name = models.CharField(max_length=100, blank=True, null=True, )
+
+    def __str__(self):
+        return str(self.age)
+
+
+class Pricing(models.Model):
+    name = models.CharField(max_length=100)  # Basic / Pro / Premium
+
+    def __str__(self):
+        return self.name
+
+
+class Subscription(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    pricing = models.ForeignKey(Pricing, on_delete=models.CASCADE, related_name='subscriptions')
+    created = models.DateTimeField(auto_now_add=True)
+    stripe_subscription_id = models.CharField(max_length=50)
+    status = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.user.email
+
+
+# class Video(models.Model):
+#     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='videos')
+#     vimeo_id = models.CharField(max_length=50)
+#     title = models.CharField(max_length=150)
+#     slug = models.SlugField(unique=True)
+#     description = models.TextField()
+#     order = models.IntegerField(default=1)
+
+#     class Meta:
+#         ordering = ["order"]    
+
+#     def __str__(self):
+#         return self.title
+
+#     def get_absolute_url(self):
+#         return reverse("product:video-detail", kwargs={
+#             "video_slug": self.slug,
+#             "slug": self.product.slug
+#         })
+
+
+class Product(models.Model):
     categories_options = [
         ('art', 'Art'),
         ('automobliles & motorcycles', 'Automobliles & Motorcycles'),
@@ -52,62 +152,6 @@ class Category(models.Model):
         ('power tools', 'Power Tools'),
         ('hardware tools', 'Hardware Tools'),
     ]
-    name = models.CharField(max_length=100, choices=categories_options)
-
-    class Meta:
-        verbose_name_plural = "Categories"
-
-    def __str__(self):
-        return self.name
-
-
-class Age(models.Model):
-    age = models.IntegerField(blank=True, null=True, help_text = "ads age group range")
-
-    def __str__(self):
-        return self.name
-
-
-class Pricing(models.Model):
-    name = models.CharField(max_length=100)  # Basic / Pro / Premium
-
-    def __str__(self):
-        return self.name
-
-
-class Subscription(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    pricing = models.ForeignKey(Pricing, on_delete=models.CASCADE, related_name='subscriptions')
-    created = models.DateTimeField(auto_now_add=True)
-    stripe_subscription_id = models.CharField(max_length=50)
-    status = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.user.email
-
-
-# class Video(models.Model):
-#     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='videos')
-#     vimeo_id = models.CharField(max_length=50)
-#     title = models.CharField(max_length=150)
-#     slug = models.SlugField(unique=True)
-#     description = models.TextField()
-#     order = models.IntegerField(default=1)
-
-#     class Meta:
-#         ordering = ["order"]    
-
-#     def __str__(self):
-#         return self.title
-
-#     def get_absolute_url(self):
-#         return reverse("product:video-detail", kwargs={
-#             "video_slug": self.slug,
-#             "slug": self.product.slug
-#         })
-
-
-class Product(models.Model):
     option_ads = [
         ('faceBook', 'FaceBook'),
         ('instagram', 'Instagram'),
@@ -371,18 +415,18 @@ class Product(models.Model):
     product_margin = models.IntegerField(default=0, help_text = "Profit you get from this product")
     product_vimeo_id = models.CharField(max_length=50, blank=True, null=True,) 
     category = models.ForeignKey(
-        Category, on_delete=models.PROTECT)
+        Category, on_delete=models.PROTECT, choices=categories_options)
     age = models.ForeignKey(
         Age, on_delete=models.PROTECT)
     last_seen = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     countries = models.CharField(max_length=100, choices=country_choices, default='United States')
-    site_type = models.CharField(max_length=250, choices=option_ads_type, default='faceBook')
+    ads_type = models.CharField(max_length=250, choices=option_ads_type, default='Video')
     media_type = models.CharField(max_length=250, choices=option_ads, default='video')
     gender = models.CharField(max_length=250, choices=gender_options, default='Male or Female')
     technology = models.CharField(max_length=250, choices=technology_options, default='Shopify')
     language= models.CharField(max_length=250, choices=option_language, default='English')
-    button = models.CharField(max_length=250, choices=option_button, default='Shop Now')
+    button = models.CharField(max_length=250, choices=option_button)
     store_name = models.CharField(max_length=500, help_text = "store or ads name",  blank=True, null=True,)
     links_to_ads = models.CharField(max_length=500, help_text = "A link that will take to ads")
     links_to_a_single_store = models.CharField(max_length=500, help_text = "A link that will take to a single the store")

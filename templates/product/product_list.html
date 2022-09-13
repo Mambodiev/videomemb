@@ -11,6 +11,10 @@
             {% render_field filter.form.title class="form-control" %}
         </div>
         <div class="col-md-2">
+            {{ filter.form.ads_type.label_tag }}
+            {% render_field filter.form.ads_type class="form-control" %}
+        </div>
+        <div class="col-md-2">
             {{ filter.form.button.label_tag }}
             {% render_field filter.form.button class="form-control" %}
         </div>
@@ -19,18 +23,10 @@
             {% render_field filter.form.gender class="form-control" %}
         </div>
         <div class="col-md-2">
-            {{ filter.form.site_type.label_tag }}
-            {% render_field filter.form.site_type class="form-control" %}
-        </div>
-        <div class="col-md-2">
             {{ filter.form.category.label_tag }}
             {% render_field filter.form.category class="form-control" %}
         </div>
 
-        <div class="col-md-2">
-            {{ filter.form.gender.label_tag }}
-            {% render_field filter.form.gender class="form-control" %}
-        </div>
         <div class="col-md-2">
             {{ filter.form.technology.label_tag }}
             {% render_field filter.form.technology class="form-control" %}
@@ -48,8 +44,8 @@
                 {% render_field filter.form.last_seen class="form-control" %}
             </div>
             <div class="col-md-2">
-                {{ filter.form.product_cost.label_tag }}
-                {% render_field filter.form.product_cost class="form-control" %}
+                {{ filter.form.price.label_tag }}
+                {% render_field filter.form.price class="form-control" %}
             </div>
             <div class="col-md-2">
                 {{ filter.form.age.label_tag }}

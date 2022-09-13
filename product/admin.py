@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Pricing, Subscription, Category 
+from .models import Age, Pricing, Subscription, Category 
 from . import models
 
 @admin.register(models.Product)
@@ -10,3 +10,4 @@ class AuthorAdmin(admin.ModelAdmin):
 admin.site.register(Pricing)
 admin.site.register(Category)
 admin.site.register(Subscription)
+admin.site.register(Age)
