@@ -1,52 +1,11 @@
-from .models import Product, Category
+from .models import Product
 import django_filters
 from django_filters.widgets import RangeWidget
+from django.forms.widgets import TextInput
 
 
 class ProductFilter(django_filters.FilterSet):
-    categories_options = [
-        ('art', 'Art'),
-        ('automobliles & motorcycles', 'Automobliles & Motorcycles'),
-        ('beauty & health', 'Beauty & Health'),
-        ('camping & hiking', 'Camping & Hiking'),
-        ('cellphones & telecommunications', 'Cellphones & Telecommunications'),
-        ('computer & office', 'Computer & Office'),
-        ('consumer electronics', 'Consumer Electronics'),
-        ('festive & party suppliers', 'Festive & Party Suppliers'),
-        ('home & garden', 'Home & Garden'),
-        ('home improvement', 'Home Improvement'),
-        ('jewelry & accessories', 'Jewelry & Accessories'),
-        ('lights & lighting', 'Lights & Lighting'),
-        ('luggage & bags', 'luggage & bags'),
-        ("men's clothing & acccessories", "Men's Clothing & Acccessories"),
-        ('mother & kids', 'Mother & Kids'),
-        ('novelty & special use', 'Novelty & Special Use'),
-        ('office & school supplies', 'Office & School Supplies'),
-        ('pet products', 'Pet Products'),
-        ('phones & telecommunications', 'Phones & Telecommunications'),
-        ('security & protection', 'Security & Protection'),
-        ('shoes', 'Shoes'),
-        ('sports & entertainment', 'Sports & Entertainment'),
-        ('toys & hobbies', 'Toys & Hobbies'),
-        ('watches', 'Watches'),
-        ("women's clothing & accessories", "Women's Clothing & Accessories"),
-        ("women's shoes", "Women's Shoes"),
-        ('general', 'General'),
-        ('gaming', 'Gaming'),
-        ('kitchen', 'Kitchen'),
-        ('sewing', 'Sewing'),
-        ('health', 'Health'),
-        ('gifts', 'Gifts'),
-        ('travel', 'Travel'),
-        ('fishing', 'Fishing'),
-        ('furniture', 'Furniture'),
-        ('christmas', 'Christmas'),
-        ('DIY', 'DIY'),
-        ('baby', 'Baby'),
-        ('wood working', 'Wood Working'),
-        ('power tools', 'Power Tools'),
-        ('hardware tools', 'Hardware Tools'),
-    ]
+
     option_ads_type = [
         ('video', 'Video'),
         ('photo', 'Photo'),
@@ -291,23 +250,27 @@ class ProductFilter(django_filters.FilterSet):
         ('vietnamese', 'Vietnamese'),
     ]
     
+
     title = django_filters.CharFilter(label="Search", lookup_expr='icontains')
     ads_type = django_filters.ChoiceFilter(field_name='ads_type', choices=option_ads_type, empty_label='all', initial='all')
-    button = django_filters.ChoiceFilter(field_name='button', choices=option_button, empty_label='all', initial='all')
-    gender = django_filters.ChoiceFilter(field_name='gender', choices=gender_options, empty_label='all', initial='all')
-    technology = django_filters.ChoiceFilter(field_name='technology', choices=technology_options, empty_label='all', initial='all')
-    countries = django_filters.ChoiceFilter(field_name='countries', choices=country_choices, empty_label='all', initial='all')
-    language = django_filters.ChoiceFilter(field_name='language', choices=option_language, empty_label='all', initial='all')
+    button = django_filters.ChoiceFilter(field_name='button', choices=option_button, empty_label = 'all', initial='all')
+    gender = django_filters.ChoiceFilter(field_name='gender', choices=gender_options, empty_label= 'all', initial='all')
+    technology = django_filters.ChoiceFilter(field_name='technology', choices=technology_options, empty_label ='all', initial='all')
+    countries = django_filters.ChoiceFilter(field_name='countries', choices=country_choices, empty_label ='all', initial='all')
+    language = django_filters.ChoiceFilter(field_name='language', choices=option_language, empty_label ='all', initial='all')
     last_seen = django_filters.DateFromToRangeFilter(label="Created Between", widget=RangeWidget(attrs={'type': 'date'}))
-    price =  django_filters.RangeFilter(label="Price range")
-    age =  django_filters.RangeFilter()
-    likes =  django_filters.RangeFilter()
-    comment =  django_filters.RangeFilter()
-    category = django_filters.ChoiceFilter(field_name='category__name', choices=categories_options, empty_label='all',label="Category")
+    price = django_filters.RangeFilter(widget=RangeWidget(attrs={'placeholder': 'Price between'}))
+    age =  django_filters.RangeFilter(label="Age",field_name='age__age', widget=RangeWidget(attrs={'placeholder': 'Age between'}))
+    comment =  django_filters.RangeFilter(label="Comment",field_name='comment', widget=RangeWidget(attrs={'placeholder': 'Comment between'}))
+    likes =  django_filters.RangeFilter(label="Likes",field_name='likes', widget=RangeWidget(attrs={'placeholder': 'Likes between'}))
+
+
 
 
     class Meta:
         model = Product
-        fields = {'title', 'age','likes', 'ads_type', 'comment', 'gender', 'media_type', 'last_seen', 'technology', 'countries', 'language', 'button' ,'category__name','price',}
+        fields = {'title', 'age__age','likes', 'ads_type', 'comment', 'gender', 'media_type', 'last_seen', 'technology', 'countries', 'language', 'button' ,  'price'
+        }
         
+
     

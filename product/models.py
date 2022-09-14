@@ -8,61 +8,12 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-class Category(models.Model):
-    # categories_options = [
-    #     ('art', 'Art'),
-    #     ('automobliles & motorcycles', 'Automobliles & Motorcycles'),
-    #     ('beauty & health', 'Beauty & Health'),
-    #     ('camping & hiking', 'Camping & Hiking'),
-    #     ('cellphones & telecommunications', 'Cellphones & Telecommunications'),
-    #     ('computer & office', 'Computer & Office'),
-    #     ('consumer electronics', 'Consumer Electronics'),
-    #     ('festive & party suppliers', 'Festive & Party Suppliers'),
-    #     ('home & garden', 'Home & Garden'),
-    #     ('home improvement', 'Home Improvement'),
-    #     ('jewelry & accessories', 'Jewelry & Accessories'),
-    #     ('lights & lighting', 'Lights & Lighting'),
-    #     ('luggage & bags', 'luggage & bags'),
-    #     ("men's clothing & acccessories", "Men's Clothing & Acccessories"),
-    #     ('mother & kids', 'Mother & Kids'),
-    #     ('novelty & special use', 'Novelty & Special Use'),
-    #     ('office & school supplies', 'Office & School Supplies'),
-    #     ('pet products', 'Pet Products'),
-    #     ('phones & telecommunications', 'Phones & Telecommunications'),
-    #     ('security & protection', 'Security & Protection'),
-    #     ('shoes', 'Shoes'),
-    #     ('sports & entertainment', 'Sports & Entertainment'),
-    #     ('toys & hobbies', 'Toys & Hobbies'),
-    #     ('watches', 'Watches'),
-    #     ("women's clothing & accessories", "Women's Clothing & Accessories"),
-    #     ("women's shoes", "Women's Shoes"),
-    #     ('general', 'General'),
-    #     ('gaming', 'Gaming'),
-    #     ('kitchen', 'Kitchen'),
-    #     ('sewing', 'Sewing'),
-    #     ('health', 'Health'),
-    #     ('gifts', 'Gifts'),
-    #     ('travel', 'Travel'),
-    #     ('fishing', 'Fishing'),
-    #     ('furniture', 'Furniture'),
-    #     ('christmas', 'Christmas'),
-    #     ('DIY', 'DIY'),
-    #     ('baby', 'Baby'),
-    #     ('wood working', 'Wood Working'),
-    #     ('power tools', 'Power Tools'),
-    #     ('hardware tools', 'Hardware Tools'),
-    # ]
-    name = models.CharField(max_length=100,)
 
-    class Meta:
-        verbose_name_plural = "Categories"
-
-    def __str__(self):
-        return self.name
 
 
 class Age(models.Model):
     age = models.IntegerField(blank=True, null=True, help_text = "ads age group range")
+    
     # name = models.CharField(max_length=100, blank=True, null=True, )
 
     def __str__(self):
@@ -410,12 +361,11 @@ class Product(models.Model):
         blank=True)
     likes = models.IntegerField(default=0, help_text = "Amount of likes generated")
     comment = models.IntegerField(default=0, help_text = "Amount of comment generated")
+    share = models.IntegerField(default=0, help_text = "Amount of share generated")
     price = models.IntegerField(default=0, help_text = "Price pay to buy this product")
     product_selling_price = models.IntegerField(default=0, help_text = "Price you can sell this product")
     product_margin = models.IntegerField(default=0, help_text = "Profit you get from this product")
     product_vimeo_id = models.CharField(max_length=50, blank=True, null=True,) 
-    category = models.ForeignKey(
-        Category, on_delete=models.PROTECT, choices=categories_options)
     age = models.ForeignKey(
         Age, on_delete=models.PROTECT)
     last_seen = models.DateTimeField()

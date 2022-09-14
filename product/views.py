@@ -12,6 +12,10 @@ class ProductListView(generic.ListView):
     template_name = "product/product_list.html"
     queryset = Product.objects.all()
     filter_set = ProductFilter
+    filterset_class = ProductFilter
+    
+    
+
 
 
 
