@@ -1,3 +1,4 @@
+from itertools import product
 from django.db import models
 from django.conf import settings
 from django.db.models.signals import pre_save, post_save
@@ -7,17 +8,6 @@ from django.shortcuts import reverse
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
-
-
-
-
-class Age(models.Model):
-    age = models.IntegerField(blank=True, null=True, help_text = "ads age group range")
-    
-    # name = models.CharField(max_length=100, blank=True, null=True, )
-
-    def __str__(self):
-        return str(self.age)
 
 
 class Pricing(models.Model):
@@ -366,8 +356,6 @@ class Product(models.Model):
     product_selling_price = models.IntegerField(default=0, help_text = "Price you can sell this product")
     product_margin = models.IntegerField(default=0, help_text = "Profit you get from this product")
     product_vimeo_id = models.CharField(max_length=50, blank=True, null=True,) 
-    age = models.ForeignKey(
-        Age, on_delete=models.PROTECT)
     last_seen = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     countries = models.CharField(max_length=100, choices=country_choices, default='United States')
@@ -387,6 +375,7 @@ class Product(models.Model):
     is_instagram = models.BooleanField(default=False)
     is_tiktok = models.BooleanField(default=False)
     
+
     def get_absolute_url(self):
         return reverse("product:product-detail", kwargs={"slug": self.slug})
         
@@ -400,26 +389,29 @@ class Product(models.Model):
         print('URL:', url)
         return url
 
+    def __str__(self):
+        return self.title 
+    
 
-# class Video(models.Model):
-#     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='videos')
-#     vimeo_id = models.CharField(max_length=50)
-#     title = models.CharField(max_length=150)
-#     slug = models.SlugField(unique=True)
-#     description = models.TextField()
-#     order = models.IntegerField(default=1)
+class Video(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='videos')
+    vimeo_id = models.CharField(max_length=50)
+    title = models.CharField(max_length=150)
+    slug = models.SlugField(unique=True)
+    description = models.TextField()
+    order = models.IntegerField(default=1)
 
-#     class Meta:
-#         ordering = ["order"]    
+    class Meta:
+        ordering = ["order"]    
 
-#     def __str__(self):
-#         return self.title
+    def __str__(self):
+        return self.title
 
-#     def get_absolute_url(self):
-#         return reverse("product:video-detail", kwargs={
-#             "video_slug": self.slug,
-#             "slug": self.product.slug
-#         })
+    def get_absolute_url(self):
+        return reverse("product:video-detail", kwargs={
+            "video_slug": self.slug,
+            "slug": self.product.slug
+        })
 
 
 def pre_save_product(sender, instance, *args, **kwargs):
@@ -436,6 +428,61 @@ def post_save_user(sender, instance, created, *args, **kwargs):
     if created:
         free_trial_pricing = Pricing.objects.get(name='Free Trial')
         Subscription.objects.create(user=instance, pricing=free_trial_pricing)
+
+
+def __str__(self):
+    return  self.title
+
+
+class Country(models.Model):
+    title = models.ForeignKey(Product, on_delete=models.CASCADE)
+    country_number = models.IntegerField(blank=True, null=True, help_text = "ads country_number group range")
+    name = models.CharField(max_length=100, blank=True, null=True, )
+
+    def __str__(self):
+        return self.name
+
+
+
+class Order(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    order_quantity = models.PositiveIntegerField(null=True)
+    name = models.CharField(max_length=100, blank=True, null=True, )
+
+    def __str__(self):
+        return  self.name
+
+
+
+class Country(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    country_number = models.IntegerField(blank=True, null=True, help_text = "ads country number group range")
+    name = models.CharField(max_length=100, blank=True, null=True, )
+
+    def __str__(self):
+        return self.name
+
+
+
+class Gender(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='genders')
+    gender_number = models.IntegerField(blank=True, null=True, help_text = "ads gender number group range")
+    name = models.CharField(max_length=100, blank=True, null=True, )
+
+    def __str__(self):
+        return  self.name
+
+
+
+class Age(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    age = models.IntegerField(blank=True, null=True, help_text = "ads age group range")
+    name = models.CharField(max_length=100, blank=True, null=True, )
+
+    def __str__(self):
+        return self.name
+
+
 
 post_save.connect(post_save_user, sender=User)
 pre_save.connect(pre_save_product, sender=Product)
