@@ -259,17 +259,20 @@ class ProductFilter(django_filters.FilterSet):
     countries = django_filters.ChoiceFilter(field_name='countries', choices=country_choices, empty_label ='all', initial='all')
     language = django_filters.ChoiceFilter(field_name='language', choices=option_language, empty_label ='all', initial='all')
     last_seen = django_filters.DateFromToRangeFilter(label="Created Between", widget=RangeWidget(attrs={'type': 'date'}))
-    price = django_filters.RangeFilter(widget=RangeWidget(attrs={'placeholder': 'Price between'}))
+ 
     age =  django_filters.RangeFilter(label="Age",field_name='age__age', widget=RangeWidget(attrs={'placeholder': 'Age between'}))
     comment =  django_filters.RangeFilter(label="Comment",field_name='comment', widget=RangeWidget(attrs={'placeholder': 'Comment between'}))
-    likes =  django_filters.RangeFilter(label="Likes",field_name='likes', widget=RangeWidget(attrs={'placeholder': 'Likes between'}))
+
+    likes =  django_filters.RangeFilter(label="Likes", field_name='likes', widget=RangeWidget(attrs={'placeholder': 'Likes between'}))
+
+    aliexpress_price = django_filters.RangeFilter(label="Price", field_name='aliexpress_price', widget=RangeWidget(attrs={'placeholder': 'Price between'}))
 
 
 
 
     class Meta:
         model = Product
-        fields = {'title', 'age__age','likes', 'ads_type', 'comment', 'gender', 'media_type', 'last_seen', 'technology', 'countries', 'language', 'button' ,  'price'
+        fields = {'title', 'age__age','likes', 'aliexpress_price', 'ads_type', 'comment', 'gender', 'media_type', 'last_seen', 'technology', 'countries', 'language', 'button' 
         }
         
 

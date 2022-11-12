@@ -6,7 +6,6 @@ from .filters import ProductFilter
 app_name = "product"
 
 urlpatterns = [
-    # path("", ProductListView.as_view(), name='product-list'),
     path("", FilterView.as_view(filterset_class=ProductFilter,
         template_name='product/product_list.html'), name='product-list'),
     path("<slug>/", ProductDetailView.as_view(), name='product-detail'),

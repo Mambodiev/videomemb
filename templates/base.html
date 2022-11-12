@@ -1,5 +1,5 @@
 {% load static %}
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -16,6 +16,8 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
     </head>
     <body class="sb-nav-fixed">
+        <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v15.0" nonce="MQfBz5Jf"></script>
         {% include 'navbar.html' %}
         {% if messages %}
           {% for message in messages %}
@@ -45,497 +47,330 @@
         
         {% include 'script.html' %}
     </body>
-</html>
-
- 
- 
-{% comment %} {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>{% block head_title %}{% endblock head_title %}</title>
-      <meta name="description" content="{% block description %} Home description  {% endblock %}">
-      <meta name="keywords" content="{% block keywords %} Home Keywords {% endblock %}">
-      {% block extra_head %}
-      {% endblock extra_head %}
-      <link rel="icon"
-        href="{% static 'favicons/favicon.ico' %}">
-      <link rel="stylesheet"
-        href="{% static 'css/style.css' %}">
-  </head>
-  {% include 'navbar.html' %}
-  <body>
-      {% if messages %}
-        {% for message in messages %}
-        <div class="container">
-          <div class="alert">
-              <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-              {{ message }}
-            </div>
-        </div>
-        {% endfor %}
-      {% endif %}
-      {% block content %}
-
-      {% endblock content %}
-
-      {% block extra_body %}
-      {% endblock %}
-
-    {% include 'footer.html' %}
-    {% block javascript %}
-    {% endblock javascript %}
-  </body>
-</html>  {% endcomment %}
-
-
-{% comment %} {% load static %}
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <meta name="description" content="">
-      <meta name="author" content="">
-
-      <title>Marek's Portfolio - Analysing Air Pollution!</title>
-
-      <!-- Custom fonts for this template-->
-      <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
-      <link
-              href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-              rel="stylesheet">
-
-      <!-- Custom styles for this template-->
-      <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
-
-      {% block head %}
-      {% endblock %}
-
-  </head>
-  <body id="page-top">
-
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'website:index' %}">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Marek's Portfolio</div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            {% url 'website:samples' as samples %}
-            <li class="nav-item{% if page_path == samples %} active{% endif %}">
-                <a class="nav-link" href="{% url 'website:samples' %}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Samples</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Apps
-            </div>
-
-            <!-- Nav Item - Airpollution Collapse Menu -->
-            <li class="nav-item{% if app_name == 'airpollution' %} active{% endif %}">
-                <a class="nav-link{% if app_name != 'airpollution' %} collapsed{% endif %}" href="#" data-toggle="collapse"
-                  data-target="#collapseOne"
-                  aria-expanded="true" aria-controls="collapseOne">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Airpollution App</span>
-                </a>
-                <div id="collapseOne" class="collapse{% if app_name == 'airpollution' %} show{% endif %}"
-                    aria-labelledby="headingOne" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Upload data:</h6>
-                        {% url 'airpollution:upload' as airpollution_upload %}
-                        <a class="collapse-item{% if page_path == airpollution_upload %} active{% endif %}"
-                          href="{{ airpollution_upload }}">Upload</a>
-                        <h6 class="collapse-header">View data:</h6>
-                        {% url 'airpollution:table' as airpollution_table %}
-                        <a class="collapse-item{% if page_path == airpollution_table %} active{% endif %}"
-                          href="{{ airpollution_table }}">Table</a>
-                        {% url 'airpollution:charts' as airpollution_charts %}
-                        <a class="collapse-item{% if page_path == airpollution_charts %} active{% endif %}"
-                          href="{{ airpollution_charts }}">Charts</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - My Finances Collapse Menu -->
-            {% if user %}
-                <li class="nav-item{% if app_name == 'my_finances' %} active{% endif %}">
-                    <a class="nav-link{% if app_name != 'my_finances' %} collapsed{% endif %}" href="#"
-                      data-toggle="collapse" data-target="#collapseTwo"
-                      aria-expanded="true" aria-controls="collapseTwo">
-                        <i class="fas fa-fw fa-cog"></i>
-                        <span>My Finances App</span>
-                    </a>
-                    <div id="collapseTwo" class="collapse{% if app_name == 'my_finances' %} show{% endif %}"
-                        aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Dashboards:</h6>
-                            {% url 'my_finances:current_period' as my_finances_current_period %}
-                            {% url 'my_finances:year_overview' as my_finances_year_overview %}
-                            <a class="collapse-item{% if page_path == my_finances_current_period %} active{% endif %}"
-                              href="{{ my_finances_current_period }}">Current Period</a>
-                            <a class="collapse-item{% if page_path == my_finances_year_overview %} active{% endif %}"
-                              href="{{ my_finances_year_overview }}">Year Overview</a>
-
-                            <h6 class="collapse-header">Update records:</h6>
-                            {% url 'my_finances:balance_create' as my_finances_balance_create %}
-                            {% url 'my_finances:income_create' as my_finances_income_create %}
-                            {% url 'my_finances:outcome_create' as my_finances_outcome_create %}
-                            <a class="collapse-item{% if page_path == my_finances_balance_create %} active{% endif %}"
-                              href="{{ my_finances_balance_create }}">Add Balance</a>
-                            <a class="collapse-item{% if page_path == my_finances_income_create %} active{% endif %}"
-                              href="{{ my_finances_income_create }}">Add Income</a>
-                            <a class="collapse-item{% if page_path == my_finances_outcome_create %} active{% endif %}"
-                              href="{{ my_finances_outcome_create }}">Add Outcome</a>
-
-                            <h6 class="collapse-header">View records:</h6>
-                            {% url 'my_finances:balance_list' as my_finances_balance_list %}
-                            {% url 'my_finances:income_list' as my_finances_income_list %}
-                            {% url 'my_finances:outcome_list' as my_finances_outcome_list %}
-                            <a class="collapse-item{% if page_path == my_finances_balance_list %} active{% endif %}"
-                              href="{{ my_finances_balance_list }}">List Balance</a>
-                            <a class="collapse-item{% if page_path == my_finances_income_list %} active{% endif %}"
-                              href="{{ my_finances_income_list }}">List Income</a>
-                            <a class="collapse-item{% if page_path == my_finances_outcome_list %} active{% endif %}"
-                              href="{{ my_finances_outcome_list }}">List Outcome</a>
-                        </div>
-                    </div>
-                </li>
-            {% endif %}
-
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
-        <!-- End of Sidebar -->
-
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <!-- Topbar Search -->
-                    <form
-                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                  aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                              placeholder="Search for..." aria-label="Search"
-                                              aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
-
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
-
-                        <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="{% static 'img/undraw_profile_1.svg' %}"
-                                            alt="">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.
-                                        </div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="{% static 'img/undraw_profile_2.svg' %}"
-                                            alt="">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how
-                                            would you like them sent to you?
-                                        </div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="{% static 'img/undraw_profile_3.svg' %}"
-                                            alt="">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!
-                                        </div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                            alt="">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...
-                                        </div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div>
-                        </li>
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            {% if user %}
-                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.first_name }} {{ user.last_name }}</span>
-                                    <img class="img-profile rounded-circle"
-                                        src="{% static 'img/undraw_profile.svg' %}">
-                                </a>
-                                <!-- Dropdown - User Information -->
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                    aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Placeholder
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Logout
-                                    </a>
-                                </div>
-                            {% else %}
-                                <a class="nav-link dropdown-toggle" href="#" id="authDropdown" role="button"
-                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><i
-                                            class="far fa-user"></i></span>
-                                </a>
-                                <!-- Dropdown - User Information -->
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                    aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="{% url 'accounts:register' %}">
-                                        <i class="fas fa-user-plus fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Register
-                                    </a>
-                                    <a class="dropdown-item" href="{% url 'accounts:login' %}">
-                                        <i class="fas fa-sign-in-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Login
-                                    </a>
-                                </div>
-                            {% endif %}
-                        </li>
-
-                    </ul>
-
-                </nav>
-                <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-                    {% include 'common/messages.html' %}
-
-                    {% block content %}
-                    {% endblock %}
-
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Marek's Portfolio {{ today.year }}</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="{% url 'accounts:logout' %}">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
-
-    {% block js %}
-    {% endblock %}
-
-  </body>
 </html> {% endcomment %}
 
 
 
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Blogzine - Blog and Magazine Bootstrap 5 Theme</title>
+		<!-- Meta Tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="author" content="Webestica.com">
+		<meta name="description" content="Bootstrap based News, Magazine and Blog Theme">
+	
+		<!-- Favicon -->
+		<link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}">
+	
+		<!-- Google Font -->
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+	
+		<!-- Plugins CSS -->
+		<link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/font-awesome/css/all.min.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/tiny-slider/tiny-slider.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'assets/css/custom.css' %}" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+		<!-- Theme CSS -->
+		 {% comment %} <link id="style-switch"  rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}"> {% endcomment %}
+		 <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+		 {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style-dark.css' %}"> {% endcomment %}
+
+	</head>
+
+<body>
+
+<!-- =======================
+Header START -->
+<header class="navbar-light navbar-sticky header-static">
+	<!-- Logo Nav START -->
+	<nav class="navbar navbar-expand-lg">
+		<div class="container">
+			<!-- Logo START -->
+			<a class="navbar-brand" href="{% url 'product:product-list' %}">
+				<img class="navbar-brand-item light-mode-item" src="{% static 'assets/images/logo.svg' %}" alt="logo">			
+				<img class="navbar-brand-item dark-mode-item" src="{% static 'assets/images/logo-light.svg' %}" alt="logo">			
+			</a>
+			<!-- Logo END -->
+
+			<!-- Responsive navbar toggler -->
+			<button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="text-body h6 d-none d-sm-inline-block">Menu</span>
+			  <span class="navbar-toggler-icon"></span>
+		  </button>
+
+			<!-- Main navbar START -->
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav navbar-nav-scroll ms-auto">
+					
+					<!-- Nav item 1 Demos -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle active" href="#" id="homeMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Home</a>
+						<ul class="dropdown-menu" aria-labelledby="homeMenu">
+							<li> <a class="dropdown-item" href="index.html">Home default</a></li>
+							<li> <a class="dropdown-item" href="index-lazy.html">Home lazy load</a></li>
+							<li> <a class="dropdown-item" href="index-2.html">Magazine classic</a></li>
+							<li> <a class="dropdown-item" href="index-3.html">Magazine</a></li>
+							<li> <a class="dropdown-item" href="index-4.html">Home cards</a></li>
+							<li> <a class="dropdown-item active" href="index-5.html">Blog classic</a></li>
+						</ul>
+					</li>
+
+					<!-- Nav item 2 Pages -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="pagesMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
+						<ul class="dropdown-menu" aria-labelledby="pagesMenu">
+							<li> <a class="dropdown-item" href="about-us.html">About</a></li>
+							<li> <a class="dropdown-item" href="contact-us.html">Contact</a></li>
+							<!-- Dropdown submenu -->
+							<li class="dropdown-submenu dropend"> 
+								<a class="dropdown-item dropdown-toggle" href="#">Other Archives</a>
+								<ul class="dropdown-menu dropdown-menu-start" data-bs-popper="none">
+									<li> <a class="dropdown-item" href="author.html">Author Page</a> </li>
+									<li> <a class="dropdown-item" href="categories.html">Category page 1</a> </li>
+									<li> <a class="dropdown-item" href="categories-2.html">Category page 2</a> </li>
+									<li> <a class="dropdown-item" href="tag.html"># tag</a> </li>
+									<li> <a class="dropdown-item" href="search-result.html">Search result</a> </li>
+								</ul>
+							</li>
+							<li> <a class="dropdown-item" href="404.html">Error 404</a></li>
+							<li> <a class="dropdown-item" href="signin.html">signin</a></li>
+							<li> <a class="dropdown-item" href="signup.html">signup</a></li>
+							<li> <a class="dropdown-item" href="offline.html">offline</a></li>
+							<!-- Dropdown submenu levels -->
+							<li class="dropdown-divider"></li>
+							<li class="dropdown-submenu dropend">
+								<a class="dropdown-item dropdown-toggle" href="#">Dropdown levels</a>
+								<ul class="dropdown-menu dropdown-menu-start" data-bs-popper="none">
+									<!-- dropdown submenu open right -->
+									<li class="dropdown-submenu dropend">
+										<a class="dropdown-item dropdown-toggle" href="#">Dropdown (end)</a>
+										<ul class="dropdown-menu" data-bs-popper="none">
+											<li> <a class="dropdown-item" href="#">Dropdown item</a> </li>
+											<li> <a class="dropdown-item" href="#">Dropdown item</a> </li>
+										</ul>
+									</li>
+									<li> <a class="dropdown-item" href="#">Dropdown item</a> </li>
+									<!-- dropdown submenu open left -->
+									<li class="dropdown-submenu dropstart">
+										<a class="dropdown-item dropdown-toggle" href="#">Dropdown (start)</a>
+										<ul class="dropdown-menu dropdown-menu-end" data-bs-popper="none">
+											<li> <a class="dropdown-item" href="#">Dropdown item</a> </li>
+											<li> <a class="dropdown-item" href="#">Dropdown item</a> </li>
+										</ul>
+									</li>
+									<li> <a class="dropdown-item" href="#">Dropdown item</a> </li>
+								</ul>
+							</li>
+							<li class="dropdown-divider"></li>
+							<li> 
+								<a class="dropdown-item" href="https://support.webestica.com/" target="_blank">
+									<i class="text-warning fa-fw bi bi-life-preserver me-2"></i>Support
+								</a> 
+							</li>
+							<li> 
+								<a class="dropdown-item" href="docs/index.html" target="_blank">
+									<i class="text-danger fa-fw bi bi-card-text me-2"></i>Documentation
+								</a> 
+							</li>
+							<li class="dropdown-divider"></li>
+							<li> 
+								<a class="dropdown-item" href="https://blogzine.webestica.com/rtl" target="_blank">
+									<i class="text-info fa-fw bi bi-toggle-off me-2"></i>RTL demo
+								</a> 
+							</li>
+							<li> 
+								<a class="dropdown-item" href="https://themes.getbootstrap.com/store/webestica/" target="_blank">
+									<i class="text-success fa-fw bi bi-cloud-download-fill me-2"></i>Buy blogzine!
+								</a> 
+							</li>
+						</ul>
+					</li>
+
+					<!-- Nav item 3 Post -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="postMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Post</a>
+						<ul class="dropdown-menu" aria-labelledby="postMenu">
+							<!-- dropdown submenu -->
+							<li class="dropdown-submenu dropend"> 
+								<a class="dropdown-item dropdown-toggle" href="#">Post grid</a>
+								<ul class="dropdown-menu dropdown-menu-start" data-bs-popper="none">
+									<li> <a class="dropdown-item" href="post-grid.html">Post grid</a> </li>
+									<li> <a class="dropdown-item" href="post-grid-4-col.html">Post grid 4 col</a> </li>
+									<li> <a class="dropdown-item" href="post-grid-masonry.html">Post grid masonry</a> </li>
+									<li> <a class="dropdown-item" href="post-grid-masonry-filter.html">Post grid masonry filter</a> </li>
+									<li> <a class="dropdown-item" href="post-large-and-grid.html">Post mixed large than grid</a> </li>
+								</ul>
+							</li>
+							<li> <a class="dropdown-item" href="post-list.html">Post list</a> </li>
+							<li> <a class="dropdown-item" href="post-list-2.html">Post list 2</a> </li>
+							<li> <a class="dropdown-item" href="post-cards.html">Post card</a> </li>
+							<li> <a class="dropdown-item" href="post-overlay.html">Post overlay</a> </li>
+							<li class="dropdown-divider"></li>
+							<li> <a class="dropdown-item" href="post-single.html">Post single magazine</a> </li>
+							<li> <a class="dropdown-item" href="post-single-2.html">Post single classic</a> </li>
+							<li> <a class="dropdown-item" href="post-single-3.html">Post single minimal</a> </li>
+							<li> <a class="dropdown-item" href="post-single-4.html">Post single card</a> </li>
+							<li> <a class="dropdown-item" href="post-single-5.html">Post single review</a> </li>
+							<li> <a class="dropdown-item" href="post-single-6.html">Post single video</a> </li>
+							<li class="dropdown-divider"></li>
+							<li> <a class="dropdown-item" href="pagination-styles.html">Pagination styles</a> </li>
+						</ul>
+					</li>
+
+					<!-- Nav item 4 Mega menu -->
+					<li class="nav-item dropdown dropdown-fullwidth">
+						{% comment %} <a class="nav-link dropdown-toggle" href="#" id="megaMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Lifestyle</a>
+						<div class="dropdown-menu" aria-labelledby="megaMenu">
+							<div class="container">
+								<div class="row g-4 p-3 flex-fill">
+									<!-- Card item START -->
+									<div class="col-sm-6 col-lg-3">
+										<div class="card bg-transparent">
+											<!-- Card img -->
+											<img class="card-img rounded" src="{% static 'assets/images/blog/16by9/small/01.jpg' %}" alt="Card image">
+											<div class="card-body px-0 pt-3">
+												<h6 class="card-title mb-0"><a href="#" class="btn-link text-reset fw-bold">7 common mistakes everyone makes while traveling</a></h6>
+												<!-- Card info -->
+												<ul class="nav nav-divider align-items-center text-uppercase small mt-2">
+													<li class="nav-item">
+														<a href="#" class="text-reset btn-link">Joan Wallace</a>
+													</li>
+													<li class="nav-item">Feb 18, 2021</li>
+												</ul>
+												
+				
+											</div>
+										</div>
+									</div>
+									<!-- Card item END -->
+									<!-- Card item START -->
+									<div class="col-sm-6 col-lg-3">
+										<div class="card bg-transparent">
+											<!-- Card img -->
+											<img class="card-img rounded" src="{% static 'assets/images/blog/16by9/small/02.jpg' %}" alt="Card image">
+											<div class="card-body px-0 pt-3">
+												<h6 class="card-title mb-0"><a href="#" class="btn-link text-reset fw-bold">12 worst types of business accounts you follow on Twitter</a></h6>
+												<!-- Card info -->
+												<ul class="nav nav-divider align-items-center text-uppercase small mt-2">
+													<li class="nav-item">
+														<a href="#" class="text-reset btn-link">Lori Stevens</a>
+													</li>
+													<li class="nav-item">Jun 03, 2021</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<!-- Card item END -->
+									<!-- Card item START -->
+									<div class="col-sm-6 col-lg-3">
+										<div class="card bg-transparent">
+											<!-- Card img -->
+											<img class="card-img rounded" src="{% static 'assets/images/blog/16by9/small/03.jpg' %}" alt="Card image">
+											<div class="card-body px-0 pt-3">
+												<h6 class="card-title mb-0"><a href="#" class="btn-link text-reset fw-bold">Skills that you can learn from business</a></h6>
+												<!-- Card info -->
+												<ul class="nav nav-divider align-items-center text-uppercase small mt-2">
+													<li class="nav-item">
+														<a href="#" class="text-reset btn-link">Judy Nguyen</a>
+													</li>
+													<li class="nav-item">Sep 07, 2021</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<!-- Card item END -->
+									<!-- Card item START -->
+									<div class="col-sm-6 col-lg-3">
+										<div class="bg-primary-soft p-4 text-center h-100 w-100 rounded">
+											<span>The Blogzine</span>
+											<h3>Premium Membership</h3>
+											<p>Become a Member Today!</p>
+											<a href="#" class="btn btn-warning">View pricing plans</a>
+										</div>
+									</div>
+									<!-- Card item END -->
+								</div> <!-- Row END -->
+								<!-- Trending tags -->
+								<div class="row px-3">
+									<div class="col-12">
+										<ul class="list-inline mt-3">
+											<li class="list-inline-item">Trending tags:</li>
+											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-primary-soft">Travel</a></li>
+											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-warning-soft">Business</a></li>
+											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-success-soft">Tech</a></li>
+											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-danger-soft">Gadgets</a></li>
+											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-info-soft">Lifestyle</a></li>
+											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-primary-soft">Vaccine</a></li>
+											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-success-soft">Sports</a></li>
+											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-danger-soft">Covid-19</a></li>
+											<li class="list-inline-item"><a href="#" class="btn btn-sm btn-info-soft">Politics</a></li>
+										</ul>
+									</div>
+								</div> <!-- Row END -->
+							</div>
+						</div> {% endcomment %}
+					</li>
+
+					<!-- Nav item 5 link-->
+					<li class="nav-item">	<a class="nav-link" href="../docs/alerts.html">Components</a></li>
+					<li class="nav-item">	<a class="nav-link" href="../docs/alerts.html"><span class="btn btn-sm btn-outline-success ml-3">Subscribe!</span></a></li>
+				</ul>
+				
+			</div>
+			<!-- Main navbar END -->
+			<!-- Dark mode switch -->
+				{% comment %} <div class="modeswitch ms-4" id="darkModeSwitch">
+					<div class="switch"></div>
+				</div> {% endcomment %}
+		</div>
+	</nav>
+	<!-- Logo Nav END -->
+</header>
+<!-- =======================
+Header END -->
+
+
+{% comment %} messages {% endcomment %}
+{% if messages %}
+{% for message in messages %}
+<div class="container">
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		{{ message }}
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+</div>
+{% endfor %}
+{% endif %}
+{% comment %} End messages {% endcomment %}
+
+{% comment %} block content  {% endcomment %}
+{% block content %}
+{% endblock content %}
+{% comment %} End block content  {% endcomment %}
+{% include 'footer.html' %}
+
+<!-- Back to top -->
+{% comment %} <div class="back-top"><i class="bi bi-arrow-up-short"></i></div> {% endcomment %}
+
+<!-- =======================
+JS libraries, plugins and custom scripts -->
+
+<!-- Bootstrap JS -->
+<script src="{% static 'assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+
+<!-- Vendors -->
+<script src="{% static 'assets/vendor/tiny-slider/tiny-slider.js' %}"></script>
+
+<!-- Template Functions -->
+<script src="{% static 'assets/js/functions.js' %}"></script>
+
+</body>
+</html>
+ 
 
 
 

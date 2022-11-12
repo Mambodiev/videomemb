@@ -50,49 +50,6 @@ class Subscription(models.Model):
 
 
 class Product(models.Model):
-    categories_options = [
-        ('art', 'Art'),
-        ('automobliles & motorcycles', 'Automobliles & Motorcycles'),
-        ('beauty & health', 'Beauty & Health'),
-        ('camping & hiking', 'Camping & Hiking'),
-        ('cellphones & telecommunications', 'Cellphones & Telecommunications'),
-        ('computer & office', 'Computer & Office'),
-        ('consumer electronics', 'Consumer Electronics'),
-        ('festive & party suppliers', 'Festive & Party Suppliers'),
-        ('home & garden', 'Home & Garden'),
-        ('home improvement', 'Home Improvement'),
-        ('jewelry & accessories', 'Jewelry & Accessories'),
-        ('lights & lighting', 'Lights & Lighting'),
-        ('luggage & bags', 'luggage & bags'),
-        ("men's clothing & acccessories", "Men's Clothing & Acccessories"),
-        ('mother & kids', 'Mother & Kids'),
-        ('novelty & special use', 'Novelty & Special Use'),
-        ('office & school supplies', 'Office & School Supplies'),
-        ('pet products', 'Pet Products'),
-        ('phones & telecommunications', 'Phones & Telecommunications'),
-        ('security & protection', 'Security & Protection'),
-        ('shoes', 'Shoes'),
-        ('sports & entertainment', 'Sports & Entertainment'),
-        ('toys & hobbies', 'Toys & Hobbies'),
-        ('watches', 'Watches'),
-        ("women's clothing & accessories", "Women's Clothing & Accessories"),
-        ("women's shoes", "Women's Shoes"),
-        ('general', 'General'),
-        ('gaming', 'Gaming'),
-        ('kitchen', 'Kitchen'),
-        ('sewing', 'Sewing'),
-        ('health', 'Health'),
-        ('gifts', 'Gifts'),
-        ('travel', 'Travel'),
-        ('fishing', 'Fishing'),
-        ('furniture', 'Furniture'),
-        ('christmas', 'Christmas'),
-        ('DIY', 'DIY'),
-        ('baby', 'Baby'),
-        ('wood working', 'Wood Working'),
-        ('power tools', 'Power Tools'),
-        ('hardware tools', 'Hardware Tools'),
-    ]
     option_ads = [
         ('faceBook', 'FaceBook'),
         ('instagram', 'Instagram'),
@@ -346,15 +303,16 @@ class Product(models.Model):
    
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
-    thumbnail = models.ImageField(upload_to="thumbnails/", default='products/default.jpg')
-    image_store = models.ImageField(upload_to="image_store/",default='products/default.jpg',
+    thumbnail = models.ImageField(upload_to="thumbnails/", default='products/default_thumbnail.jpg')
+    image_store = models.ImageField(upload_to="image_store/",default='products/defaut_image_store.png',
         blank=True)
     likes = models.IntegerField(default=0, help_text = "Amount of likes generated")
     comment = models.IntegerField(default=0, help_text = "Amount of comment generated")
     share = models.IntegerField(default=0, help_text = "Amount of share generated")
-    price = models.IntegerField(default=0, help_text = "Price pay to buy this product")
-    product_selling_price = models.IntegerField(default=0, help_text = "Price you can sell this product")
-    product_margin = models.IntegerField(default=0, help_text = "Profit you get from this product")
+    shopify_price = models.IntegerField(help_text = "Product price from shopify")
+    aliexpress_price = models.IntegerField(help_text = "Product price from aliexpress")
+    price_margin = models.IntegerField(help_text = "Profit you get from this product")
+    aliexpress_url = models.URLField(blank=True)
     product_vimeo_id = models.CharField(max_length=50, blank=True, null=True,) 
     last_seen = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -364,7 +322,7 @@ class Product(models.Model):
     gender = models.CharField(max_length=250, choices=gender_options, default='Male or Female')
     technology = models.CharField(max_length=250, choices=technology_options, default='Shopify')
     language= models.CharField(max_length=250, choices=option_language, default='English')
-    button = models.CharField(max_length=250, choices=option_button)
+    button = models.CharField(max_length=250, choices=option_button, default='Buy Now')
     store_name = models.CharField(max_length=500, help_text = "store or ads name",  blank=True, null=True,)
     links_to_ads = models.CharField(max_length=500, help_text = "A link that will take to ads")
     links_to_a_single_store = models.CharField(max_length=500, help_text = "A link that will take to a single the store")
@@ -430,24 +388,36 @@ def post_save_user(sender, instance, created, *args, **kwargs):
         Subscription.objects.create(user=instance, pricing=free_trial_pricing)
 
 
-def __str__(self):
-    return  self.title
 
 
-class Country(models.Model):
-    title = models.ForeignKey(Product, on_delete=models.CASCADE)
-    country_number = models.IntegerField(blank=True, null=True, help_text = "ads country_number group range")
-    name = models.CharField(max_length=100, blank=True, null=True, )
 
-    def __str__(self):
-        return self.name
+# class Country(models.Model):
+#     title = models.ForeignKey(Product, on_delete=models.CASCADE)
+#     country_number = models.IntegerField(blank=True, null=True, help_text = "ads country_number group range")
+#     name = models.CharField(max_length=100, blank=True, null=True, )
+
+#     class Meta:
+#         verbose_name_plural = "Countries"
+
+#     def __str__(self):
+#         return self.name
 
 
 
 class Order(models.Model):
+
+    order_choices = [
+        ('Jan', 'Jan'),
+        ('Feb', 'Feb'),
+        ('Mar', 'Mar'),
+        ('Apr', 'Apr'),
+        ('May', 'May'),
+        ('Jun', 'Jun'),
+    ]
+
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     order_quantity = models.PositiveIntegerField(null=True)
-    name = models.CharField(max_length=100, blank=True, null=True, )
+    name = models.CharField(max_length=100, blank=True, null=True, choices=order_choices,)
 
     def __str__(self):
         return  self.name
@@ -455,9 +425,46 @@ class Order(models.Model):
 
 
 class Country(models.Model):
+    country_choices = [
+        ('United States', 'United States'),
+        ('United Kingdom', 'United Kingdom'),
+        ('Canada', 'Canada'),
+        ('Australia', 'Australia'),
+        ('New Zealand', 'New Zealand'),
+        ('Sweden', 'Sweden'),
+        ('Denmark', 'Denmark'),
+        ('Iceland', 'Iceland'),
+        ('Norway', 'Norway'),
+        ('Finland', 'Finland'),
+        ('The Netherlands', 'The Netherlands'),
+        ('Ireland', 'Ireland'),
+        ('Germany', 'Germany'),
+        ('South Korea', 'South Korea'),
+        ('Switzerland', 'Switzerland'),
+        ('Belgium', 'Belgium'),
+        ('Israel', 'Israel'),
+        ('Italy', 'Italy'),
+        ('France', 'France'),
+        ('Spain', 'Spain'),
+        ('Portugal', 'Portugal'),
+        ('Austria', 'Austria'),
+        ('Hungary', 'Hungary'),
+        ('Poland', 'Poland'),
+        ('Czech Republic', 'Czech Republic'),
+        ('UAE', 'UAE'),
+        ('South Africa', 'South Africa'),
+        ('The Philippines', 'The Philippines'),
+        ('Japan', 'Japan'),
+        ('Singapore', 'Singapore'),
+        ('Argentina', 'Argentina'),
+        ('Mexico', 'Mexico'),
+    ]
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     country_number = models.IntegerField(blank=True, null=True, help_text = "ads country number group range")
-    name = models.CharField(max_length=100, blank=True, null=True, )
+    name = models.CharField(max_length=100, blank=True, null=True,choices=country_choices, default='United States')
+
+    class Meta:
+        verbose_name_plural = "Countries"
 
     def __str__(self):
         return self.name
@@ -465,9 +472,15 @@ class Country(models.Model):
 
 
 class Gender(models.Model):
+
+    gender_choices = [
+        ('Female', 'Female'),
+        ('Male', 'Male'),
+        ('Unkwon', 'Unknown'),
+    ]
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='genders')
     gender_number = models.IntegerField(blank=True, null=True, help_text = "ads gender number group range")
-    name = models.CharField(max_length=100, blank=True, null=True, )
+    name = models.CharField(max_length=100, blank=True, null=True,choices=gender_choices, default='Female' )
 
     def __str__(self):
         return  self.name
@@ -475,13 +488,42 @@ class Gender(models.Model):
 
 
 class Age(models.Model):
+
+    age_choices = [
+        ('13-17', '13-17'),
+        ('18-24', '18-24'),
+        ('25-34', '25-34'),
+        ('35-44', '35-44'),
+        ('45-54', '45-54'),
+        ('55-64', '55-64'),
+        ('65+', '65+'),
+    ]
+
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     age = models.IntegerField(blank=True, null=True, help_text = "ads age group range")
-    name = models.CharField(max_length=100, blank=True, null=True, )
+    name = models.CharField(max_length=100, blank=True, null=True, choices=age_choices, default='25-34')
 
     def __str__(self):
-        return self.name
+        return str(self.name) 
 
+
+class Like(models.Model):
+
+    like_choices = [
+        ('Jan', 'Jan'),
+        ('Feb', 'Feb'),
+        ('Mar', 'Mar'),
+        ('Apr', 'Apr'),
+        ('May', 'May'),
+        ('Jun', 'Jun'),
+    ]
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    like = models.IntegerField(blank=True, null=True, help_text = "ads like range")
+    name = models.CharField(max_length=100, blank=True, null=True, choices=like_choices, default='Jan')
+
+    def __str__(self):
+        return str(self.name)
 
 
 post_save.connect(post_save_user, sender=User)
