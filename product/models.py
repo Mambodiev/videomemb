@@ -306,6 +306,10 @@ class Product(models.Model):
     thumbnail = models.ImageField(upload_to="thumbnails/", default='products/default_thumbnail.jpg')
     image_store = models.ImageField(upload_to="image_store/",default='products/defaut_image_store.png',
         blank=True)
+    aliexpress_order = models.IntegerField(default=0, help_text = "Amount of aliexpress order generated")
+    number_of_store_selling = models.IntegerField(default=0, help_text = "Amount of store selling the product")
+    number_of_suppliers_selling= models.IntegerField(default=0, help_text = "Amount of suppliers selling the product")
+    aliexpress_total_sale = models.IntegerField(default=0, help_text = "Amount of aliexpress sale generated")
     likes = models.IntegerField(default=0, help_text = "Amount of likes generated")
     comment = models.IntegerField(default=0, help_text = "Amount of comment generated")
     share = models.IntegerField(default=0, help_text = "Amount of share generated")
@@ -336,7 +340,15 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse("product:product-detail", kwargs={"slug": self.slug})
-        
+    
+    def get_margin(self):
+        return "{:.2f}".format(self.price_margin / 100)
+
+    def get_aliexpres(self):
+        return "{:.2f}".format(self.aliexpress_price / 100)
+
+    def get_shopify(self):
+        return "{:.2f}".format(self.shopify_price / 100)
 
     @property
     def imageURL(self):

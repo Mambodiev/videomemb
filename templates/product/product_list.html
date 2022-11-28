@@ -7,15 +7,15 @@
 {% comment %} filter search {% endcomment %}
 <section class="py-0">
 	<div class="container">
-		<div class="card border rounded up-hover p-2 mb-2">
+		<div class="card up-hover p-2 mb-2">
 			<div class="d-flex justify-content-between my-2">
-				<h4 class="m-0">Over <strong class="text-success"> {{ object_list|length }}</strong> products</h4>
+				<h4 class="m-0">Over <strong class=""> {{ object_list|length }}</strong> products</h4>
 				<h4>
 					Filters <i class="bi bi-filter"></i>
 				</h4>
 				<!-- End Button trigger modal -->
 			</div>
-			<form method="get"  class="px-0 g-3">
+			<form method="get"  class="px-0 g-3 text-dark"">
 				<div class="row">
 					<div class="col-md-8">
 						{{ filter.form.title.label_tag }}
@@ -61,7 +61,7 @@
 						{{ filter.form.last_seen.label_tag }}
 						{% render_field filter.form.last_seen class="form-control" %}
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-2 text-dark">
 						{{ filter.form.aliexpress_price.label_tag }}
 						{% render_field filter.form.aliexpress_price class="form-control" %}
 					</div>
@@ -78,7 +78,7 @@
 						{% render_field filter.form.likes class="form-control" %}
 					</div>
 					<div class="d-grid pt-2 col-12 mx-auto">
-						<button type="submit" class="btn btn-success mb-3">Search</button>
+						<button type="submit" class="btn bg-dark text-white mb-3">Search</button>
 					</div>
 				</div>
 			</form>
@@ -94,8 +94,8 @@
 		<div class="row">
 			<!-- Card item START -->
 			{% for product in object_list %}
-				<div class="col-sm-6 col-lg-3">
-					<div class="card border rounded up-hover p-2 mb-2">
+				<div class="col-sm-6 col-lg-3 shadow-sm">
+					<div class="card rounded up-hover p-2 mb-2">
 					<!-- Title -->
 					<div class="mb-2 d-flex justify-content-between">
 						<a href="{{ product.links_to_a_single_store }}" class="text-reset">
@@ -123,8 +123,8 @@
 								<!-- Card play button -->
 								<div class="position-absolute top-50 start-50 translate-middle pb-5">
 									<!-- Popup video -->
-									<a href="https://youtu.be/n_Cn8eFo7u8" class="icon-md bg-success d-block text-white rounded-circle" data-glightbox data-gallery="y-video">
-										<i class="bi bi-play-btn"></i>
+									<a href="https://youtu.be/n_Cn8eFo7u8" class="icon-md d-block text-secondary rounded-circle" data-glightbox data-gallery="y-video">
+										<i class="bi bi-play-circle" style="font-size: 3.5rem;"></i>
 									</a>
 								</div>
 								<img class="rounded" src="{{ product.thumbnail.url }}" alt="Image">

@@ -91,8 +91,9 @@ Header START -->
 		<div class="container">
 			<!-- Logo START -->
 			<a class="navbar-brand" href="{% url 'product:product-list' %}">
-				<img class="navbar-brand-item light-mode-item" src="{% static 'assets/images/logo.svg' %}" alt="logo">			
-				<img class="navbar-brand-item dark-mode-item" src="{% static 'assets/images/logo-light.svg' %}" alt="logo">			
+				{% comment %} <img class="navbar-brand-item light-mode-item" src="{% static 'assets/images/logo.svg' %}" alt="logo">			
+				<img class="navbar-brand-item dark-mode-item" src="{% static 'assets/images/logo-light.svg' %}" alt="logo">			 {% endcomment %}
+				<h3>SNOOPERSPY</h3>
 			</a>
 			<!-- Logo END -->
 
@@ -317,7 +318,7 @@ Header START -->
 
 					<!-- Nav item 5 link-->
 					<li class="nav-item">	<a class="nav-link" href="../docs/alerts.html">Components</a></li>
-					<li class="nav-item">	<a class="nav-link" href="../docs/alerts.html"><span class="btn btn-sm btn-outline-success ml-3">Subscribe!</span></a></li>
+					<li class="nav-item">	<a class="nav-link" href="../docs/alerts.html"><span class="btn btn-sm bg-secondary text-white ml-3">Subscribe!</span></a></li>
 				</ul>
 				
 			</div>

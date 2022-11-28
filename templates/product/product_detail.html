@@ -1,597 +1,378 @@
 {% extends "base.html" %}
 {% block content %}
-
+{% load cool_num %}
+{% load static %}
 
  <!-- =======================
 Main content START -->
 <section class="position-relative pt-0">
 	<div class="container">
 		<div class="row g-4">
-            <!-- Card item START -->
-            <div class="col-lg-4">
-                <div class="card card-overlay-bottom card-img-scale">
-                <!-- Card featured -->
-                            <span class="card-featured" title="Featured post"><i class="bi bi-heart-fill"></i></span>
-                <!-- Card Image -->
-                <img src="{{ product.thumbnail.url }}" alt="">
+      <div class="col-lg-4 col-sm-6">
+          <div class="card card-overlay-bottom card-img-scale">
+              <span class="card-featured" title="Featured post"><i class="bi bi-heart-fill"></i></span>
+          <img src="{{ product.thumbnail.url }}" alt="">
+          </div>
+      </div>
+      <div class="col-lg-8 col-sm-6">
+          <h1 class="card-title h3">{{ product.title}}</h1>
+          <div class="row g-4">
+              <div class="col-xl-4 col-md-6 mb-2">
+                  <div class="card shadow-sm h-100 py-0">
+                      <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                              <div class="col mr-2">
+                                  <div class="text-xs font-weight-bold  mb-1">
+                                      Likes</div>
+                                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{ product.likes|cool_num  }}</div>
+                              </div>
+                              <div class="col-auto">
+                                  <i class="bi bi-hand-thumbs-up fa-2x text-gray-300"></i>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-xl-4 col-md-6 mb-2">
+                  <div class="card shadow-sm h-100 py-0">
+                      <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                              <div class="col mr-2">
+                                  <div class="text-xs font-weight-bold mb-1">
+                                      Orders</div>
+                                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{ product.aliexpress_order|cool_num  }}</div>
+                              </div>
+                              <div class="col-auto">
+                                  <i class="bi bi-fire fa-2x text-gray-300"></i>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-xl-4 col-md-6 mb-2">
+                  <div class="card shadow-sm h-100 py-0">
+                      <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                              <div class="col mr-2">
+                                  <div class="text-xs font-weight-bold mb-1">
+                                      Share</div>
+                                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{ product.share|cool_num  }}</div>
+                              </div>
+                              <div class="col-auto">
+                                  <i class="bi bi-share fa-2x text-gray-300"></i>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="col-xl-4 col-md-6 mb-2">
+                  <div class="card shadow-sm h-100 py-0">
+                      <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                              <div class="col mr-2">
+                                  <div class="text-xs font-weight-bold  mb-1">
+                                      Profits</div>
+                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${{ product.get_margin  }}</div>
+                              </div>
+                              <div class="col-auto">
+                                  <i class="bi bi-currency-dollar fa-2x text-gray-300"></i>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-xl-4 col-md-6 mb-2">
+                  <div class="card shadow-sm h-100 py-0">
+                      <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                              <div class="col mr-2">
+                                  <div class="text-xs font-weight-bold mb-1">
+                                      Selling Price</div>
+                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${{ product.get_shopify  }}</div>
+                              </div>
+                              <div class="col-auto">
+                                  <i class="bi bi-currency-dollar fa-2x text-gray-300"></i>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-xl-4 col-md-6 mb-2">
+                  <div class="card shadow-sm h-100 py-0">
+                      <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                              <div class="col mr-2">
+                                  <div class="text-xs font-weight-bold mb-1">
+                                      Product Price</div>
+                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${{ product.get_aliexpres  }}</div>
+                              </div>
+                              <div class="col-auto">
+                                  <i class="bi bi-currency-dollar fa-2x text-gray-300"></i>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="col-xl-4 col-md-6 mb-2">
+                  <div class="card shadow-sm h-100 py-0">
+                      <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                              <div class="col mr-2">
+                                  <div class="text-xs font-weight-bold  mb-1">
+                                      Earnings (Annual)</div>
+                                  <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                              </div>
+                              <div class="col-auto">
+                                  <i class="bi bi-currency-dollar fa-2x text-gray-300"></i>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-xl-4 col-md-6 mb-2">
+                  <div class="card shadow-sm h-100 py-0">
+                      <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                              <div class="col mr-2">
+                                  <div class="text-xs font-weight-bold mb-1">
+                                      # of Stores Selling</div>
+                                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{ product.number_of_store_selling  }}</div>
+                              </div>
+                              <div class="col-auto">
+                                  <i class="bi bi-shop fa-2x text-gray-300"></i>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-xl-4 col-md-6 mb-2">
+                  <div class="card shadow-sm h-100 py-0">
+                      <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                              <div class="col mr-2">
+                                  <div class="text-xs font-weight-bold mb-1">
+                                      # of Suppliers</div>
+                                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{ product.number_of_suppliers_selling  }}</div>
+                              </div>
+                              <div class="col-auto">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#595d69" class="bi bi-house-up" viewBox="0 0 16 16">
+                                      <path d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.708L8 2.207l-5 5V13.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 2 13.5V8.207l-.646.647a.5.5 0 1 1-.708-.708L7.293 1.5Z"/>
+                                      <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.354-5.854 1.5 1.5a.5.5 0 0 1-.708.708L13 11.707V14.5a.5.5 0 1 1-1 0v-2.793l-.646.647a.5.5 0 0 1-.708-.707l1.5-1.5a.5.5 0 0 1 .708 0Z"/>
+                                  </svg>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div> 
+	  </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="row">
+
+    <!-- Area Chart -->
+    <div class="col-xl-8 col-lg-7">
+        <div class="card shadow-sm mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow-sm animated--fade-in"
+                        aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-header">Dropdown Header:</div>
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
                 </div>
             </div>
-            <!-- Card item END -->
-            <!-- Card item START -->
-            <div class="col-lg-8">
-                <!-- Content Row -->
-                <div class="row">
-                    <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-4 col-md-6 my-2">
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Earnings (Monthly)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-4 col-md-6 my-2">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            Earnings (Annual)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Pending Requests Card Example -->
-                    <div class="col-xl-4 col-md-6 my-2">
-                        <div class="card border-left-warning shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                            Pending Requests</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="chart-area">
+                    <canvas id="myAreaChart"></canvas>
                 </div>
-                <div class="row">
-                    <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-4 col-md-6 my-2">
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Earnings (Monthly)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-4 col-md-6 my-2">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            Earnings (Annual)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Pending Requests Card Example -->
-                    <div class="col-xl-4 col-md-6 my-2">
-                        <div class="card border-left-warning shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                            Pending Requests</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-4 col-md-6 my-2">
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Earnings (Monthly)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Earnings (Monthly) Card Example -->
-                    <div class="col-xl-4 col-md-6 my-2">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            Earnings (Annual)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Pending Requests Card Example -->
-                    <div class="col-xl-4 col-md-6 my-2">
-                        <div class="card border-left-warning shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                            Pending Requests</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Content Row -->
             </div>
-            <!-- Card item END -->
-        </div> <!-- Row end -->
+        </div>
+    </div>
+
+    <!-- Pie Chart -->
+    <div class="col-xl-4 col-lg-5">
+        <div class="card shadow-sm mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow-sm animated--fade-in"
+                        aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-header">Dropdown Header:</div>
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="chart-pie pt-4 pb-2">
+                    <canvas id="myPieChart"></canvas>
+                </div>
+                <div class="mt-4 text-center small">
+                    <span class="mr-2">
+                        <i class="fas fa-circle text-primary"></i> Direct
+                    </span>
+                    <span class="mr-2">
+                        <i class="fas fa-circle text-success"></i> Social
+                    </span>
+                    <span class="mr-2">
+                        <i class="fas fa-circle text-info"></i> Referral
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<section class="position-relative pt-0">
+	<div class="container">
+		<div class="row g-4">
+      <!-- Card item START -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="card card-overlay-bottom card-image-scale">
+            <!-- Card Image -->
+            <img src="{{ product.thumbnail.url }}" alt="">
+            <!-- Card Image overlay -->
+            <div class="card-img-overlay d-flex flex-column p-3 p-md-4"> 
+              <div>
+                <!-- Card category -->
+                <a href="#" class="badge bg-success mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Business</a>
+              </div>
+              <div class="w-100 mt-auto">
+                <!-- Card title -->
+                <h4 class="text-white"><a href="post-single.html" class="btn-link text-reset stretched-link">5 intermediate guide to business</a></h4>
+                <!-- Card info -->
+                <ul class="nav nav-divider text-white-force align-items-center small">
+                  <li class="nav-item position-relative">
+                    <div class="nav-link">by <a href="#" class="stretched-link text-reset btn-link">Joan</a>
+                    </div>
+                  </li>
+                  <li class="nav-item">Jun 03, 2021</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+      </div>
+      <!-- Card item END -->
+      <!-- Card item START -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="card card-overlay-bottom card-image-scale">
+          <!-- Card Image -->
+          <img src="{{ product.thumbnail.url }}" alt="">
+          <!-- Card Image overlay -->
+          <div class="card-img-overlay d-flex flex-column p-3 p-md-4"> 
+            <div>
+              <!-- Card category -->
+              <a href="#" class="badge bg-success mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Business</a>
+            </div>
+            <div class="w-100 mt-auto">
+              <!-- Card title -->
+              <h4 class="text-white"><a href="post-single.html" class="btn-link text-reset stretched-link">5 intermediate guide to business</a></h4>
+              <!-- Card info -->
+              <ul class="nav nav-divider text-white-force align-items-center small">
+                <li class="nav-item position-relative">
+                  <div class="nav-link">by <a href="#" class="stretched-link text-reset btn-link">Joan</a>
+                  </div>
+                </li>
+                <li class="nav-item">Jun 03, 2021</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card item END -->
+      <!-- Card item START -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="card card-overlay-bottom card-image-scale">
+            <!-- Card Image -->
+            <img src="{{ product.thumbnail.url }}" alt="">
+            <!-- Card Image overlay -->
+            <div class="card-img-overlay d-flex flex-column p-3 p-md-4"> 
+              <div>
+                <!-- Card category -->
+                <a href="#" class="badge bg-success mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Business</a>
+              </div>
+              <div class="w-100 mt-auto">
+                <!-- Card title -->
+                <h4 class="text-white"><a href="post-single.html" class="btn-link text-reset stretched-link">5 intermediate guide to business</a></h4>
+                <!-- Card info -->
+                <ul class="nav nav-divider text-white-force align-items-center small">
+                  <li class="nav-item position-relative">
+                    <div class="nav-link">by <a href="#" class="stretched-link text-reset btn-link">Joan</a>
+                    </div>
+                  </li>
+                  <li class="nav-item">Jun 03, 2021</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+      </div>
+      <!-- Card item END -->
+      <!-- Card item START -->
+      <div class="col-sm-6 col-lg-4">
+        <div class="card card-overlay-bottom card-image-scale">
+          <!-- Card Image -->
+          <img src="{{ product.thumbnail.url }}" alt="">
+          <!-- Card Image overlay -->
+          <div class="card-img-overlay d-flex flex-column p-3 p-md-4"> 
+            <div>
+              <!-- Card category -->
+              <a href="#" class="badge bg-info mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Covid-19</a>
+            </div>
+            <div class="w-100 mt-auto">
+              <!-- Card title -->
+              <h4 class="text-white"><a href="post-single.html" class="btn-link text-reset stretched-link">Ten questions you should answer truthfully.</a></h4>
+              <!-- Card info -->
+              <ul class="nav nav-divider text-white-force align-items-center small">
+                <li class="nav-item position-relative">
+                  <div class="nav-link">by <a href="#" class="stretched-link text-reset btn-link">Billy</a>
+                  </div>
+                </li>
+                <li class="nav-item">Feb 22, 2021</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card item END -->
+    </div> <!-- Row end -->
 	</div>
 </section>
 <!-- =======================
 Main content END -->
 
+    <!-- Page level plugins -->
+    
+  <script src="{% static 'assets/js/jquery.easing.min.js' %} "></script>
+  <script src="{% static 'assets/js/sb-admin-2.min.js' %} "></script>
+  <script src="{% static 'assets/js/Chart.min.js' %}"></script>
 
-    <div class="container">
-        <div class="d-sm-flex align-items-center justify-content-between my-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ object.title }}</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-        </div>
-        <div class="row">
-            <div class="col-xl-4 col-md-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <img src="{{ product.thumbnail.url }}" class="img-fluid" alt="...">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-md-6 mb-4 shadow">
-                <div class="card h-100 p-3">
-                    <div class='row py-1 border-bottom'>
-                        <h6 class="">Lkes over past 6 months</h6>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="myChart1" width="400" height="300"></canvas>
-                        <script>                         
-                            var ctx = document.getElementById('myChart1').getContext('2d');
-                            var myChart1 = new Chart(ctx, {
-                                type: 'line',
-                                data: {
-                                    labels: [{% for order in product.order_set.all %} '{{order.name}}',{% endfor %}],
-                            datasets: [{
-                                label: 'Orders',
-                                fill: false,
-                                data: [{% for order in product.order_set.all %} {{ order.order_quantity }}, {% endfor %}],
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
-                                    ],
-                                        borderWidth: 1
-                            }]
-                                },
-                            options: {
-                                scales: {
-                                   xAxes: [{display: false}],
-                                    //xAxes: [{
-                                    //    ticks: {
-                                    //        beginAtZero: true,
-                                    //    },
-                                    //    gridLines: {
-                                    //        display:false,
-                                    //    }
-                                    //}],
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true,
-                                            display: false,
-                                        },
-                                        gridLines: {
-                                            display:false,
-                                        }
-                                    }]
-                                }
-                            }
-                            });                         
-                        </script>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-md-6 mb-4 shadow">
-                <div class="card h-100 p-3">
-                    <div class='row py-1 border-bottom'>
-                        <h6 class="">Orders over past 6 months</h6>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="myChart2" width="400" height="300"></canvas>
-                        <script>                         
-                            var ctx = document.getElementById('myChart2').getContext('2d');
-                            var myChart2 = new Chart(ctx, {
-                                type: 'line',
-                                data: {
-                                    labels: [{% for order in product.order_set.all %} '{{order.name}}',{% endfor %}],
-                            datasets: [{
-                                label: 'Orders',
-                                fill: false,
-                                data: [{% for order in product.order_set.all %} {{ order.order_quantity }}, {% endfor %}],
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
-                                    ],
-                                        borderWidth: 1
-                            }]
-                                },
-                            options: {
-                                scales: {
-                                    xAxes: [{
-                                        ticks: {
-                                            beginAtZero: true,
-                                        },
-                                        gridLines: {
-                                            display:false,
-                                        }
-                                    }],
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true,
-                                            display: false,
-                                        },
-                                        gridLines: {
-                                            display:false,
-                                        }
-                                    }]
-                                }
-                            }
-                            });                         
-                        </script>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-8 col-md-6 mb-4 shadow">
-                <div class="card h-100 p-3">
-                    <div class='row py-1 border-bottom'>
-                        <h6>Engagements</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-bar pt-4 pb-2">
-                           <canvas id="myBarChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>          
-            <div class="col-xl-4 col-md-6 mb-4 shadow">
-                <div class="card h-100 p-3">
-                    <div class='row py-1 border-bottom'>
-                        <h6 class="">Gender</h6>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="myChart" width="400" height="300"></canvas>
-                        <script>
-                            const data = {
-                                labels: [
-                                  'Red',
-                                  'Blue',
-                                  'Yellow'
-                                ],
-                                datasets: [{
-                                  label: 'My First Dataset',
-                                  data: [300, 50, 100],
-                                  backgroundColor: [
-                                    'rgb(255, 99, 132)',
-                                    'rgb(54, 162, 235)',
-                                    'rgb(255, 205, 86)'
-                                  ],
-                                  hoverOffset: 4
-                                }]
-                              };
-                            var ctx = document.getElementById('myChart').getContext('2d');
-                            var myChart = new Chart(ctx, {
-                                type: 'doughnut',
-                                data: {
-                                    labels: [{% for country in product.country_set.all %} '{{country.name}}',{% endfor %}],
-                            datasets: [{
-                                label: 'Countrys',
-                                data: [{% for country in product.country_set.all %} {{ country.country_number }}, {% endfor %}],
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
-                                    ],
-                                        borderWidth: 1
-                            }]
-                                },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true,
-                                            display: false,
-                                        },
-                                        gridLines: {
-                                            display:false
-                                        }
-                                    }]
-                                }
-                            }
-                            });
-                        </script>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-8 col-md-6 mb-4 shadow">
-                <div class="card h-100 p-3">
-                    <div class='row py-1 border-bottom'>
-                        <h6>Engagements</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-bar pt-4 pb-2">
-                           <canvas id="myBarChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>          
-            <div class="col-xl-4 col-md-6 mb-4 shadow">
-                <div class="card h-100 p-3">
-                    <div class='row py-1 border-bottom'>
-                        <h6 class="">Countries</h6>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="myChart3" width="400" height="300"></canvas>
-                        <script>
-                            {% comment %} const data = {
-                                labels: [
-                                  'Red',
-                                  'Blue',
-                                  'Yellow'
-                                ],
-                                datasets: [{
-                                  label: 'My First Dataset',
-                                  data: [300, 50, 100],
-                                  backgroundColor: [
-                                    'rgb(255, 99, 132)',
-                                    'rgb(54, 162, 235)',
-                                    'rgb(255, 205, 86)'
-                                  ],
-                                  hoverOffset: 4
-                                }]
-                              }; {% endcomment %}
-                            var ctx = document.getElementById('myChart3').getContext('2d');
-                            var myChart3 = new Chart(ctx, {
-                                type: 'doughnut',
-                                data: {
-                                    labels: [{% for country in product.country_set.all %} '{{country.name}}',{% endfor %}],
-                            datasets: [{
-                                label: 'Countrys',
-                                data: [{% for country in product.country_set.all %} {{ country.country_number }}, {% endfor %}],
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
-                                    ],
-                                        borderWidth: 1
-                            }]
-                                },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true,
-                                            display: false,
-                                        },
-                                        gridLines: {
-                                            display:false
-                                        }
-                                    }]
-                                }
-                            }
-                            });
-                        </script>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-8 col-md-6 mb-4 shadow">
-                <div class="card h-100 p-3">
-                    <div class='row py-1 border-bottom'>
-                        <h6>Engagements</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-bar pt-4 pb-2">
-                           <canvas id="myBarChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>          
-            <div class="col-xl-4 col-md-6 mb-4 shadow">
-                <div class="card h-100 p-3">
-                    <div class='row py-1 border-bottom'>
-                        <h6 class="">Age groups</h6>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="myChart4" width="400" height="300"></canvas>
-                        <script>
-                            {% comment %} const data = {
-                                labels: [
-                                  'Red',
-                                  'Blue',
-                                  'Yellow'
-                                ],
-                                datasets: [{
-                                  label: 'My First Dataset',
-                                  data: [300, 50, 100],
-                                  backgroundColor: [
-                                    'rgb(255, 99, 132)',
-                                    'rgb(54, 162, 235)',
-                                    'rgb(255, 205, 86)'
-                                  ],
-                                  hoverOffset: 4
-                                }]
-                              }; {% endcomment %}
-                            var ctx = document.getElementById('myChart4').getContext('2d');
-                            var myChart4 = new Chart(ctx, {
-                                type: 'doughnut',
-                                data: {
-                                    labels: [{% for country in product.country_set.all %} '{{country.name}}',{% endfor %}],
-                            datasets: [{
-                                label: 'Countrys',
-                                data: [{% for country in product.country_set.all %} {{ country.country_number }}, {% endfor %}],
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
-                                    ],
-                                        borderWidth: 1
-                            }]
-                                },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true,
-                                            display: false,
-                                        },
-                                        gridLines: {
-                                            display:false
-                                        }
-                                    }]
-                                }
-                            }
-                            });
-                        </script>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> 
-
-
+  <!-- Page level custom scripts -->
+  <script src="{% static 'assets/js/chart-area-demo.js' %}"></script>
+  <script src="{% static 'assets/js/chart-pie-demo.js' %}"></script>
 {% endblock content %}

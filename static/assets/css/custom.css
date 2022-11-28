@@ -1,4 +1,37 @@
+h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
+    color: rgba(0,0,0,.5)!important;
+}
+
 .avatar-xs-two {
     height: 1.1875rem!important;
     width: 1.1875rem!important;
 }
+/* border card product detail */
+.border-left-primary {
+    border-left: 0.25rem solid #4e73df!important;
+}
+.border-left-success {
+    border-left: 0.25rem solid #1cc88a!important;
+}
+.border-left-warning {
+    border-left: 0.25rem solid #f6c23e!important;
+}
+/* end border card product detail */
+
+
+/* product saved icon */
+.card-featured {
+    background: rgba(0,0,0,.5)!important;
+}
+/* product saved icon */
+/* nav link active */
+nav .nav-link.active {
+    color: rgba(0,0,0,.5)!important;
+}
+header .navbar-nav .show > .nav-link:before, header .navbar-nav .nav-link.active:before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    background: rgba(0,0,0,.5)!important;
+}
+/* nav link active */
