@@ -21,7 +21,7 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
 
 /* product saved icon */
 .card-featured {
-    background: rgba(0,0,0,.5)!important;
+    background: rgba(12, 188, 135)!important;
 }
 /* product saved icon */
 /* nav link active */
@@ -32,6 +32,6 @@ header .navbar-nav .show > .nav-link:before, header .navbar-nav .nav-link.active
     content: "";
     width: 7px;
     height: 7px;
-    background: rgba(0,0,0,.5)!important;
+    background: rgba(12, 188, 135)!important;
 }
 /* nav link active */
