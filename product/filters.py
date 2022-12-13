@@ -251,7 +251,7 @@ class ProductFilter(django_filters.FilterSet):
     ]
     
 
-    title = django_filters.CharFilter(label="Search", lookup_expr='icontains')
+    name = django_filters.CharFilter(label="Search", lookup_expr='icontains')
     ads_type = django_filters.ChoiceFilter(field_name='ads_type', choices=option_ads_type, empty_label='all', initial='all')
     button = django_filters.ChoiceFilter(field_name='button', choices=option_button, empty_label = 'all', initial='all')
     gender = django_filters.ChoiceFilter(field_name='gender', choices=gender_options, empty_label= 'all', initial='all')
@@ -272,7 +272,7 @@ class ProductFilter(django_filters.FilterSet):
 
     class Meta:
         model = Product
-        fields = {'title', 'age__age','likes', 'aliexpress_price', 'ads_type', 'comment', 'gender', 'media_type', 'last_seen', 'technology', 'countries', 'language', 'button' 
+        fields = {'name', 'age__age','likes', 'aliexpress_price', 'ads_type', 'comment', 'gender', 'media_type', 'last_seen', 'technology', 'countries', 'language', 'button' 
         }
         
 

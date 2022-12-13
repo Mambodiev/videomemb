@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 import pytz
 from django.core.management.base import BaseCommand
 
-from shop.models import Item, Purchase
+from product.models import Product, Purchase
 
 
 class Command(BaseCommand):
@@ -18,18 +18,18 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         names = ['James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas', 'Charles']
         surname = ['Smith', 'Jones', 'Taylor', 'Brown', 'Williams', 'Wilson', 'Johnson', 'Davies', 'Patel', 'Wright']
-        items = [
-            Item.objects.get_or_create(name='Socks', price=6.5), Item.objects.get_or_create(name='Pants', price=12),
-            Item.objects.get_or_create(name='T-Shirt', price=8), Item.objects.get_or_create(name='Boots', price=9),
-            Item.objects.get_or_create(name='Sweater', price=3), Item.objects.get_or_create(name='Underwear', price=9),
-            Item.objects.get_or_create(name='Leggings', price=7), Item.objects.get_or_create(name='Cap', price=5),
+        products = [
+            Product.objects.get_or_create(name='Socks', aliexpress_price=6.5), Product.objects.get_or_create(name='Pants', aliexpress_price=12),
+            Product.objects.get_or_create(name='T-Shirt', aliexpress_price=8), Product.objects.get_or_create(name='Boots', aliexpress_price=9),
+            Product.objects.get_or_create(name='Sweater', aliexpress_price=3), Product.objects.get_or_create(name='Underwear', aliexpress_price=9),
+            Product.objects.get_or_create(name='Leggings', aliexpress_price=7), Product.objects.get_or_create(name='Cap', aliexpress_price=5),
         ]
         amount = options['amount'] if options['amount'] else 2500
         for i in range(0, amount):
             dt = pytz.utc.localize(datetime.now() - timedelta(days=random.randint(0, 1825)))
             purchase = Purchase.objects.create(
                 customer_full_name=random.choice(names) + ' ' + random.choice(surname),
-                item=random.choice(items)[0],
+                product=random.choice(products)[0],
                 payment_method=random.choice(Purchase.PAYMENT_METHODS)[0],
                 successful=True if random.randint(1, 2) == 1 else False,
             )

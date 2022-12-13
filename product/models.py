@@ -301,7 +301,9 @@ class Product(models.Model):
     ]
    
    
-    title = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
+    aliexpress_price = models.FloatField(default=0, help_text = "Product price from aliexpress")
     slug = models.SlugField(unique=True)
     thumbnail = models.ImageField(upload_to="thumbnails/", default='products/default_thumbnail.jpg')
     image_store = models.ImageField(upload_to="image_store/",default='products/defaut_image_store.png',
@@ -313,12 +315,11 @@ class Product(models.Model):
     likes = models.IntegerField(default=0, help_text = "Amount of likes generated")
     comment = models.IntegerField(default=0, help_text = "Amount of comment generated")
     share = models.IntegerField(default=0, help_text = "Amount of share generated")
-    shopify_price = models.IntegerField(help_text = "Product price from shopify")
-    aliexpress_price = models.IntegerField(help_text = "Product price from aliexpress")
-    price_margin = models.IntegerField(help_text = "Profit you get from this product")
+    shopify_price = models.IntegerField(blank=True, null=True, help_text = "Product price from shopify")
+    price_margin = models.IntegerField(blank=True, null=True, help_text = "Profit you get from this product")
     aliexpress_url = models.URLField(blank=True)
     product_vimeo_id = models.CharField(max_length=50, blank=True, null=True,) 
-    last_seen = models.DateTimeField()
+    last_seen = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
     countries = models.CharField(max_length=100, choices=country_choices, default='United States')
     ads_type = models.CharField(max_length=250, choices=option_ads_type, default='Video')
@@ -328,12 +329,12 @@ class Product(models.Model):
     language= models.CharField(max_length=250, choices=option_language, default='English')
     button = models.CharField(max_length=250, choices=option_button, default='Buy Now')
     store_name = models.CharField(max_length=500, help_text = "store or ads name",  blank=True, null=True,)
-    links_to_ads = models.CharField(max_length=500, help_text = "A link that will take to ads")
-    links_to_a_single_store = models.CharField(max_length=500, help_text = "A link that will take to a single the store")
+    links_to_ads = models.CharField(blank=True, null=True, max_length=500, help_text = "A link that will take to ads")
+    links_to_a_single_store = models.CharField(blank=True, null=True, max_length=500, help_text = "A link that will take to a single the store")
     text_that_comes_with_ads = RichTextUploadingField(blank=True, null=True)
     links_to_others_stores = RichTextUploadingField(blank=True, null=True,help_text = "A link that will take to the store", )
     links_to_others_suppliers = RichTextUploadingField(blank=True, null=True,)
-    is_faceBook = models.BooleanField(default=False)
+    is_faceBook = models.BooleanField(default=True)
     is_instagram = models.BooleanField(default=False)
     is_tiktok = models.BooleanField(default=False)
     
@@ -341,14 +342,14 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse("product:product-detail", kwargs={"slug": self.slug})
     
-    def get_margin(self):
-        return "{:.2f}".format(self.price_margin / 100)
+    # def get_margin(self):
+    #     return "{:.2f}".format(self.price_margin / 100)
 
-    def get_aliexpres(self):
-        return "{:.2f}".format(self.aliexpress_price / 100)
+    # def get_aliexpres(self):
+    #     return "{:.2f}".format(self.aliexpress_price / 100)
 
-    def get_shopify(self):
-        return "{:.2f}".format(self.shopify_price / 100)
+    # def get_shopify(self):
+    #     return "{:.2f}".format(self.shopify_price / 100)
 
     @property
     def imageURL(self):
@@ -360,7 +361,7 @@ class Product(models.Model):
         return url
 
     def __str__(self):
-        return self.title 
+        return f'{self.name} (${self.aliexpress_price})' 
     
 
 class Video(models.Model):
@@ -536,6 +537,36 @@ class Like(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+
+
+# class Item(models.Model):
+#     name = models.CharField(max_length=255)
+#     description = models.TextField(null=True)
+#     price = models.FloatField(default=0)
+
+#     def __str__(self):
+#         return f'{self.name} (${self.price})'
+
+
+class Purchase(models.Model):
+    customer_full_name = models.CharField(max_length=64)
+    product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
+    PAYMENT_METHODS = [
+        ('CC', 'Credit card'),
+        ('DC', 'Debit card'),
+        ('ET', 'Ethereum'),
+        ('BC', 'Bitcoin'),
+    ]
+    payment_method = models.CharField(max_length=2, default='CC', choices=PAYMENT_METHODS)
+    time = models.DateTimeField(auto_now_add=True)
+    successful = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-time']
+
+    def __str__(self):
+        return f'{self.customer_full_name}, {self.payment_method} ({self.product.name})'
 
 
 post_save.connect(post_save_user, sender=User)
