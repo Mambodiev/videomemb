@@ -8,18 +8,18 @@
 Main content START -->
 <section class="position-relative pt-0">
 	<div class="container">
-		<div class="row g-4">
+		<div class="row g-4">{% comment %} product thumbnail {% endcomment %}
       <div class="col-lg-4 col-sm-6">
-          <div class="card card-overlay-bottom card-img-scale">
-              <span class="card-featured text-white" title="Featured post"><i class="bi bi-heart-fill"></i></span>
+          <div class="card card-img-scale rounded-0">
+              {% comment %} <span class="card-featured text-white bg-secondary " title="Featured post"><i class="bi bi-heart-fill"></i></span> {% endcomment %}
           <img src="{{ product.thumbnail.url }}" alt="">
           </div>
-      </div>
+      </div>{% comment %} product thumbnail {% endcomment %}
       <div class="col-lg-8 col-sm-6">
           <h1 class="card-title h3">{{ product.name}}</h1>
           <div class="row g-4">
               <div class="col-xl-4 col-md-6 mb-2">
-                  <div class="card shadow-sm h-100 py-0">
+                  <div class="card rounded-0 border h-100 py-0">
                       <div class="card-body">
                           <div class="row no-gutters align-items-center">
                               <div class="col mr-2">
@@ -37,7 +37,7 @@ Main content START -->
                   </div>
               </div>
               <div class="col-xl-4 col-md-6 mb-2">
-                  <div class="card shadow-sm h-100 py-0">
+                  <div class="card rounded-0 border h-100 py-0">
                       <div class="card-body">
                           <div class="row no-gutters align-items-center">
                               <div class="col mr-2">
@@ -55,7 +55,7 @@ Main content START -->
                   </div>
               </div>
               <div class="col-xl-4 col-md-6 mb-2">
-                  <div class="card shadow-sm h-100 py-0">
+                  <div class="card rounded-0  border h-100 py-0">
                       <div class="card-body">
                           <div class="row no-gutters align-items-center">
                               <div class="col mr-2">
@@ -74,7 +74,7 @@ Main content START -->
               </div>
 
               <div class="col-xl-4 col-md-6 mb-2">
-                  <div class="card shadow-sm h-100 py-0">
+                  <div class="card rounded-0  border h-100 py-0">
                       <div class="card-body">
                           <div class="row no-gutters align-items-center">
                               <div class="col mr-2">
@@ -92,7 +92,7 @@ Main content START -->
                   </div>
               </div>
               <div class="col-xl-4 col-md-6 mb-2">
-                  <div class="card shadow-sm h-100 py-0">
+                  <div class="card rounded-0  border h-100 py-0">
                       <div class="card-body">
                           <div class="row no-gutters align-items-center">
                               <div class="col mr-2">
@@ -110,7 +110,7 @@ Main content START -->
                   </div>
               </div>
               <div class="col-xl-4 col-md-6 mb-2">
-                  <div class="card shadow-sm h-100 py-0">
+                  <div class="card rounded-0  border h-100 py-0">
                       <div class="card-body">
                           <div class="row no-gutters align-items-center">
                               <div class="col mr-2">
@@ -129,7 +129,7 @@ Main content START -->
               </div>
 
               <div class="col-xl-4 col-md-6 mb-2">
-                  <div class="card shadow-sm h-100 py-0">
+                  <div class="card rounded-0  border h-100 py-0">
                       <div class="card-body">
                           <div class="row no-gutters align-items-center">
                               <div class="col mr-2">
@@ -147,7 +147,7 @@ Main content START -->
                   </div>
               </div>
               <div class="col-xl-4 col-md-6 mb-2">
-                  <div class="card shadow-sm h-100 py-0">
+                  <div class="card rounded-0  border h-100 py-0">
                       <div class="card-body">
                           <div class="row no-gutters align-items-center">
                               <div class="col mr-2">
@@ -165,7 +165,7 @@ Main content START -->
                   </div>
               </div>
               <div class="col-xl-4 col-md-6 mb-2">
-                  <div class="card shadow-sm h-100 py-0">
+                  <div class=" rounded-0 card border h-100 py-0">
                       <div class="card-body">
                           <div class="row no-gutters align-items-center">
                               <div class="col mr-2">
@@ -270,6 +270,7 @@ Main content START -->
               <canvas id="paymentMethodChart"></canvas>
             </div>
           </div>
+          {% for purchase in product.purchase_set.all   %}
           <script>
             let salesCtx = document.getElementById("salesChart").getContext("2d");
             let salesChart = new Chart(salesCtx, {
@@ -316,6 +317,7 @@ Main content START -->
               }
             });
           </script>
+          {% endfor %}
     </div>
 </section>
 {% comment %}end chart integration {% endcomment %}
@@ -324,12 +326,12 @@ Main content START -->
 {% comment %} <div class="container">
   <div class="row">
     <div class="col-xl-8 col-lg-7">
-        <div class="card shadow-sm mb-4">
+        <div class="card border mb-4">
             <canvas id="chart"></canvas>
         </div>
     </div>
     <div class="col-xl-4 col-lg-5">
-        <div class="card shadow-sm mb-4">
+        <div class="card border mb-4">
             <div
                 class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
@@ -338,7 +340,7 @@ Main content START -->
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow-sm animated--fade-in"
+                    <div class="dropdown-menu dropdown-menu-right border animated--fade-in"
                         aria-labelledby="dropdownMenuLink">
                         <div class="dropdown-header">Dropdown Header:</div>
                         <a class="dropdown-item" href="#">Action</a>
@@ -379,7 +381,7 @@ Main content START -->
             <div class="card-img-overlay d-flex flex-column p-3 p-md-4"> 
               <div>
                 <!-- Card category -->
-                <a href="#" class="badge bg-success mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Business</a>
+                <a href="#" class="badge bg-secondary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Business</a>
               </div>
               <div class="w-100 mt-auto">
                 <!-- Card title -->
@@ -406,7 +408,7 @@ Main content START -->
           <div class="card-img-overlay d-flex flex-column p-3 p-md-4"> 
             <div>
               <!-- Card category -->
-              <a href="#" class="badge bg-success mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Business</a>
+              <a href="#" class="badge bg-secondary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Business</a>
             </div>
             <div class="w-100 mt-auto">
               <!-- Card title -->
@@ -433,7 +435,7 @@ Main content START -->
             <div class="card-img-overlay d-flex flex-column p-3 p-md-4"> 
               <div>
                 <!-- Card category -->
-                <a href="#" class="badge bg-success mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Business</a>
+                <a href="#" class="badge bg-secondary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Business</a>
               </div>
               <div class="w-100 mt-auto">
                 <!-- Card title -->

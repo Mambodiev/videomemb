@@ -78,7 +78,7 @@
 						{% render_field filter.form.likes class="form-control" %}
 					</div>
 					<div class="d-grid pt-2 col-12 mx-auto">
-						<button type="submit" class="btn bg-success text-white mb-3">Search</button>
+						<button type="submit" class="btn bg-secondary text-white mb-3">Search</button>
 					</div>
 				</div>
 			</form>
@@ -92,11 +92,11 @@
 <section class="py-0">
 	<div class="container">
 		<div class="row">
-			<!-- Card item START -->
+			{% comment %} product list {% endcomment %}
 			{% for product in object_list %}
-				<div class="col-sm-6 col-lg-3 shadow-sm">
-					<div class="card rounded up-hover p-2 mb-2">
-					<!-- Title -->
+				<div class="col-sm-6 col-lg-3">
+					<div class='p-2 border'>
+					<div class="card p-2 mb-2">
 					<div class="mb-2 d-flex justify-content-between">
 						<a href="{{ product.links_to_a_single_store }}" class="text-reset">
 						<p class="m-0"><img class="avatar-img rounded" style='height: 1.1875rem; width: 1.1875rem;' src="{% static 'assets/images/blog/4by3/07.jpg' %}">  {{ product.store_name|truncatechars:10 }}</p></a>
@@ -115,51 +115,48 @@
 							{{ product.last_seen|date }}
 						</p>
 					</div>	
-					<!--Title END -->
-						<!-- Card img -->
-						<div class="card position-relative">
-							{% comment %} <img class="card-img" src="{{ product.thumbnail.url }}" alt="Card image"> {% endcomment %}
-							<figure class="figure position-relative">
-								<!-- Card play button -->
-								<div class="position-absolute top-50 start-50 translate-middle pb-5">
-									<!-- Popup video -->
-									<a href="https://youtu.be/n_Cn8eFo7u8" class="icon-md d-block text-success rounded-circle" data-glightbox data-gallery="y-video">
-										<i class="bi bi-play-circle" style="font-size: 3.5rem;"></i>
-									</a>
-								</div>
-								<img class="rounded" src="{{ product.thumbnail.url }}" alt="Image">
-								
-							</figure>
-						</div>
-						<div class="card-body px-0">
-								<h1 class="card-title h6">
-									<a href="{{ product.get_absolute_url }}" class="btn-link text-reset">
-										{{ product.name|truncatechars:64 }}
-									</a>
-								</h1>
-							<!-- Card info -->
-							<!-- Social widget START -->
-							<div class="d-flex justify-content-between">
-								<div class="text-center">
-									<i class="bi bi-hand-thumbs-up"></i>
-									<h6 class="m-0">{{ product.likes|cool_num  }}</h6>
-								</div>
-								<div class="text-center">
-									<i class="bi bi-chat"></i>
-									<h6 class="m-0">{{ product.comment|cool_num  }}</h6>
-								</div>
-								<div class="text-center">
-									<i class="bi bi-share"></i>
-									<h6 class="m-0">{{ product.share|cool_num  }}</h6>
-								</div>
+					<div class="card position-relative">
+						{% comment %} <img class="card-img" src="{{ product.thumbnail.url }}" alt="Card image"> {% endcomment %}
+						<figure class="figure position-relative">
+							<!-- Card play button -->
+							<div class="position-absolute top-50 start-50 translate-middle pb-5">
+								<!-- Popup video -->
+								<a class="btn btn-secondary btn-round" href="#"><i class="fas fa-play"></i></a>
 							</div>
-
-							<!-- Social widget END -->
+							<img class="rounded" src="{{ product.thumbnail.url }}" alt="Image">
+							
+						</figure>
+					</div>
+					<div class="card-body px-0">
+							<h1 class="card-title h6">
+								<a href="{{ product.get_absolute_url }}" class="btn-link text-reset">
+									{{ product.name|truncatechars:64 }}
+								</a>
+							</h1>
+						<!-- Card info -->
+						<!-- Social widget START -->
+						<div class="d-flex justify-content-between">
+							<div class="text-center">
+								<i class="bi bi-hand-thumbs-up"></i>
+								<h6 class="m-0">{{ product.likes|cool_num  }}</h6>
+							</div>
+							<div class="text-center">
+								<i class="bi bi-chat"></i>
+								<h6 class="m-0">{{ product.comment|cool_num  }}</h6>
+							</div>
+							<div class="text-center">
+								<i class="bi bi-share"></i>
+								<h6 class="m-0">{{ product.share|cool_num  }}</h6>
+							</div>
 						</div>
+
+						<!-- Social widget END -->
+					</div>
+					</div>
 					</div>
 				</div>
 			{% endfor %}
-			<!-- Card item END -->
+			{% comment %} end product list {% endcomment %}
 		</div>
 	</div>
 </section>

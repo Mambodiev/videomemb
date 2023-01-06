@@ -1,56 +1,4 @@
 {% load static %}
-{% comment %} <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>SnooperSpy Ads</title>
-        <link href="{% static 'css/dist-style.css' %}" rel="stylesheet" />
-        <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
-        <script src="{% static 'js/fontawesome.js' %}" crossorigin="anonymous"></script>
-        <link rel="icon"
-        href="{% static 'assets/favicon.ico' %}">
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-    </head>
-    <body class="sb-nav-fixed">
-        <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v15.0" nonce="MQfBz5Jf"></script>
-        {% include 'navbar.html' %}
-        {% if messages %}
-          {% for message in messages %}
-            <div class="alert alert-primary alert-icon" role="alert">
-                <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-                <div class="alert-icon-aside">
-                    <i class="far fa-flag"></i>
-                </div>
-                <div class="alert-icon-content">
-                    {{ message }}
-                </div>
-            </div>
-          {% endfor %}
-        {% endif %}
-        <div id="layoutSidenav">
-          {% include 'layoutSidenav.html' %}
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-lg">
-                      {% block content %}
-                      {% endblock content %}
-                    </div>
-                </main>
-                {% include 'footer.html' %}
-            </div>
-        </div>
-        
-        {% include 'script.html' %}
-    </body>
-</html> {% endcomment %}
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -89,7 +37,7 @@ Header START -->
 			<a class="navbar-brand" href="{% url 'product:product-list' %}">
 				{% comment %} <img class="navbar-brand-item light-mode-item" src="{% static 'assets/images/logo.svg' %}" alt="logo">			
 				<img class="navbar-brand-item dark-mode-item" src="{% static 'assets/images/logo-light.svg' %}" alt="logo">			 {% endcomment %}
-				<h3 class='text-success'>SNOOPERSPY</h3>
+				<h3 class=''>SNOOPERSPY</h3>
 			</a>
 			<!-- Logo END -->
 
@@ -181,7 +129,7 @@ Header START -->
 							</li>
 							<li> 
 								<a class="dropdown-item" href="https://themes.getbootstrap.com/store/webestica/" target="_blank">
-									<i class="text-success fa-fw bi bi-cloud-download-fill me-2"></i>Buy blogzine!
+									<i class="fa-fw bi bi-cloud-download-fill me-2"></i>Buy blogzine!
 								</a> 
 							</li>
 						</ul>
@@ -314,7 +262,7 @@ Header START -->
 
 					<!-- Nav item 5 link-->
 					<li class="nav-item">	<a class="nav-link" href="../docs/alerts.html">Components</a></li>
-					<li class="nav-item">	<a class="nav-link" href="../docs/alerts.html"><span class="btn bg-success  btn-sm text-white ml-3">Subscribe!</span></a></li>
+					<li class="nav-item">	<a class="nav-link" href="../docs/alerts.html"><span class="btn bg-secondary  btn-sm text-white ml-3">Subscribe!</span></a></li>
 				</ul>
 				
 			</div>
@@ -363,8 +311,6 @@ JS libraries, plugins and custom scripts -->
 <script src="{% static 'assets/vendor/tiny-slider/tiny-slider.js' %}"></script>
 
 <!-- Template Functions -->
-<script src="{% static 'assets/js/functions.js' %}"></script>
-
 </body>
 </html>
  

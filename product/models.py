@@ -305,7 +305,7 @@ class Product(models.Model):
     description = models.TextField(blank=True, null=True)
     aliexpress_price = models.FloatField(default=0, help_text = "Product price from aliexpress")
     slug = models.SlugField(unique=True)
-    thumbnail = models.ImageField(upload_to="thumbnails/", default='products/default_thumbnail.jpg')
+    thumbnail = models.ImageField(upload_to="thumbnails/", default='products/defaut_image_store_light_blue_bag.jpg')
     image_store = models.ImageField(upload_to="image_store/",default='products/defaut_image_store.png',
         blank=True)
     aliexpress_order = models.IntegerField(default=0, help_text = "Amount of aliexpress order generated")
@@ -364,6 +364,26 @@ class Product(models.Model):
         return f'{self.name} (${self.aliexpress_price})' 
     
 
+class Purchase(models.Model):
+    customer_full_name = models.CharField(max_length=64)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    PAYMENT_METHODS = [
+        ('CC', 'Credit card'),
+        ('DC', 'Debit card'),
+        ('ET', 'Ethereum'),
+        ('BC', 'Bitcoin'),
+    ]
+    payment_method = models.CharField(max_length=2, default='CC', choices=PAYMENT_METHODS)
+    time = models.DateTimeField(auto_now_add=True)
+    successful = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-time']
+
+    def __str__(self):
+        return f'{self.customer_full_name}, {self.payment_method} ({self.product.name})'
+
+        
 class Video(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='videos')
     vimeo_id = models.CharField(max_length=50)
@@ -549,24 +569,7 @@ class Like(models.Model):
 #         return f'{self.name} (${self.price})'
 
 
-class Purchase(models.Model):
-    customer_full_name = models.CharField(max_length=64)
-    product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
-    PAYMENT_METHODS = [
-        ('CC', 'Credit card'),
-        ('DC', 'Debit card'),
-        ('ET', 'Ethereum'),
-        ('BC', 'Bitcoin'),
-    ]
-    payment_method = models.CharField(max_length=2, default='CC', choices=PAYMENT_METHODS)
-    time = models.DateTimeField(auto_now_add=True)
-    successful = models.BooleanField(default=False)
 
-    class Meta:
-        ordering = ['-time']
-
-    def __str__(self):
-        return f'{self.customer_full_name}, {self.payment_method} ({self.product.name})'
 
 
 post_save.connect(post_save_user, sender=User)
