@@ -6,14 +6,14 @@ from datetime import datetime, timedelta
 import pytz
 from django.core.management.base import BaseCommand
 
-from product.models import Product, Purchase
+from product.models import Product, Sale
 
 
 class Command(BaseCommand):
     help = 'Populates the database with random generated data.'
 
     def add_arguments(self, parser):
-        parser.add_argument('--amount', type=int, help='The number of purchases that should be created.')
+        parser.add_argument('--amount', type=int, help='The number of sales that should be created.')
 
     def handle(self, *args, **options):
         names = ['James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas', 'Charles']
@@ -27,13 +27,13 @@ class Command(BaseCommand):
         amount = options['amount'] if options['amount'] else 2500
         for i in range(0, amount):
             dt = pytz.utc.localize(datetime.now() - timedelta(days=random.randint(0, 1825)))
-            purchase = Purchase.objects.create(
+            sale = Sale.objects.create(
                 customer_full_name=random.choice(names) + ' ' + random.choice(surname),
                 product=random.choice(products)[0],
-                payment_method=random.choice(Purchase.PAYMENT_METHODS)[0],
+                payment_method=random.choice(Sale.PAYMENT_METHODS)[0],
                 successful=True if random.randint(1, 2) == 1 else False,
             )
-            purchase.time = dt
-            purchase.save()
+            sale.time = dt
+            sale.save()
 
         self.stdout.write(self.style.SUCCESS('Successfully populated the database.'))

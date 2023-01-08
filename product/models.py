@@ -364,24 +364,44 @@ class Product(models.Model):
         return f'{self.name} (${self.aliexpress_price})' 
     
 
-class Purchase(models.Model):
-    customer_full_name = models.CharField(max_length=64)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    PAYMENT_METHODS = [
-        ('CC', 'Credit card'),
-        ('DC', 'Debit card'),
-        ('ET', 'Ethereum'),
-        ('BC', 'Bitcoin'),
+class Sale(models.Model):
+
+    MONTHS_NAME = [
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        ('DEC', 'DECEMBER'),
+        ('NOV', 'NOVEMBER'),
+        ('OCT', 'OCTOBER'),
+        ('SEPT', 'SEPTEMBER'),
+        ('AUG', 'AUGUST'),
+        ('JUL', 'JULY'),
+        ('JUN', 'JUNE'),
+        ('MAY', 'MAY'),
+        ('APR', 'APRIL'),
+        ('MAR', 'MARCH'),
+        ('FEB', 'FEBUARY'),
+        ('JAN', 'JANUARY'),
     ]
-    payment_method = models.CharField(max_length=2, default='CC', choices=PAYMENT_METHODS)
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    month_name = models.CharField(max_length=4, default='JAN', choices=MONTHS_NAME)
+    total_number_of_sale = models.IntegerField(blank=True, null=True, help_text = "")
     time = models.DateTimeField(auto_now_add=True)
-    successful = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-time']
 
     def __str__(self):
-        return f'{self.customer_full_name}, {self.payment_method} ({self.product.name})'
+        return f'{self.month_name}, ({self.product.name})'
 
         
 class Video(models.Model):
