@@ -303,7 +303,6 @@ class Product(models.Model):
    
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
-    aliexpress_price = models.FloatField(default=0, help_text = "Product price from aliexpress")
     slug = models.SlugField(unique=True)
     thumbnail = models.ImageField(upload_to="thumbnails/", default='products/defaut_image_store_light_blue_bag.jpg')
     image_store = models.ImageField(upload_to="image_store/",default='products/defaut_image_store.png',
@@ -315,8 +314,9 @@ class Product(models.Model):
     likes = models.IntegerField(default=0, help_text = "Amount of likes generated")
     comment = models.IntegerField(default=0, help_text = "Amount of comment generated")
     share = models.IntegerField(default=0, help_text = "Amount of share generated")
-    shopify_price = models.IntegerField(blank=True, null=True, help_text = "Product price from shopify")
-    price_margin = models.IntegerField(blank=True, null=True, help_text = "Profit you get from this product")
+    shopify_price = models.IntegerField(default=0,blank=True, null=True, help_text = "Product price from shopify")
+    aliexpress_price = models.IntegerField(default=0, help_text = "Product price from aliexpress")
+    price_margin = models.IntegerField(default=0,blank=True, null=True, help_text = "Profit you get from this product")
     aliexpress_url = models.URLField(blank=True)
     product_vimeo_id = models.CharField(max_length=50, blank=True, null=True,) 
     last_seen = models.DateTimeField(auto_now_add=True)
@@ -342,14 +342,14 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse("product:product-detail", kwargs={"slug": self.slug})
     
-    # def get_margin(self):
-    #     return "{:.2f}".format(self.price_margin / 100)
+    def get_margin(self):
+        return "{:.2f}".format(self.price_margin / 100)
 
-    # def get_aliexpres(self):
-    #     return "{:.2f}".format(self.aliexpress_price / 100)
+    def get_aliexpres(self):
+        return "{:.2f}".format(self.aliexpress_price / 100)
 
-    # def get_shopify(self):
-    #     return "{:.2f}".format(self.shopify_price / 100)
+    def get_shopify(self):
+        return "{:.2f}".format(self.shopify_price / 100)
 
     @property
     def imageURL(self):
@@ -363,6 +363,15 @@ class Product(models.Model):
     def __str__(self):
         return f'{self.name} (${self.aliexpress_price})' 
     
+
+    def save(self, *args, **kwargs):
+        aliexpress_price = self.shopify_price
+        shopify_price = self.aliexpress_price
+        if self.shopify_price:
+            diff = aliexpress_price - shopify_price
+            self.price_margin = round(diff, 2)
+        
+        super().save(*args, **kwargs)
 
 class Sale(models.Model):
 
