@@ -366,34 +366,9 @@ class Product(models.Model):
 
 class Sale(models.Model):
 
-    MONTHS_NAME = [
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        ('DEC', 'DECEMBER'),
-        ('NOV', 'NOVEMBER'),
-        ('OCT', 'OCTOBER'),
-        ('SEPT', 'SEPTEMBER'),
-        ('AUG', 'AUGUST'),
-        ('JUL', 'JULY'),
-        ('JUN', 'JUNE'),
-        ('MAY', 'MAY'),
-        ('APR', 'APRIL'),
-        ('MAR', 'MARCH'),
-        ('FEB', 'FEBUARY'),
-        ('JAN', 'JANUARY'),
-    ]
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    month_name = models.CharField(max_length=4, default='JAN', choices=MONTHS_NAME)
+    # month_name = models.CharField(max_length=50)
     total_number_of_sale = models.IntegerField(blank=True, null=True, help_text = "")
     time = models.DateTimeField(auto_now_add=True)
 
@@ -401,7 +376,7 @@ class Sale(models.Model):
         ordering = ['-time']
 
     def __str__(self):
-        return f'{self.month_name}, ({self.product.name})'
+        return f' ({self.product.name}), {self.total_number_of_sale}'
 
         
 class Video(models.Model):

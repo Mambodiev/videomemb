@@ -2,6 +2,10 @@
 {% block content %}
 {% load cool_num %}
 {% load static %}
+
+
+
+
  <!-- =======================
 Main content START -->
 <section class="position-relative pt-0">
@@ -189,11 +193,9 @@ Main content START -->
 <section class="position-relative pt-0">
 	<div class="container">
     <div class="row">  
-      {% comment %} {% for sale in product.sale_set.all %} {% endcomment %}
         <div class="col-6">
-          <canvas id="sale-chart" data-url="{% url 'product:sale-chart' %}"></canvas>
+          <canvas id="myChart"></canvas> 
         </div>  
-      {% comment %} {% endfor %} {% endcomment %}
       <div class="col-6">
       </div>
       <div class="col-6">
@@ -317,45 +319,57 @@ Main content START -->
     </div> <!-- Row end -->
 	</div>
 </section>
+{% endblock content %}
 
-<script src="{% static 'assets/js/jquery-3.4.1.min.js' %}"></script>
-<script src="{% static 'assets/js/Chart.min.js' %}"></script>
-<script>
-  $(function () {
-
-    var $saleChart = $("#sale-chart");
-    $.ajax({
-      url: $saleChart.data("url"),
-      success: function (data) {
-
-        var ctx = $saleChart[0].getContext("2d");
-
-        new Chart(ctx, {
-          type: 'bar',
+{% comment %} chart js script {% endcomment %}    
+{%block scripts%}
+    <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/Chart-2.8.0.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'assets/css/Chart-2.8.0.min.css' %}"/>
+    <script>
+      $(document).ready(function(){
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+          type: 'line',
           data: {
-            labels: data.labels,
-            datasets: [{
-              label: 'Sale',
-              backgroundColor: 'blue',
-              data: data.data
-            }]          
+              labels: [{% for sale in product.sale_set.all %}'',{%endfor%}],
+              datasets: [{
+                  label: '# sale chart',
+                  data: [{% for sale in product.sale_set.all %}{{sale.total_number_of_sale}},{%endfor%}],
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)', 
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(255, 159, 64, 0.2)'
+                  ],
+                  borderColor: [
+                      'rgba(255, 99, 132, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)'
+                  ],
+                  borderWidth: 1,
+                  fill: false,
+                  pointRadius: 0,
+              }]
           },
           options: {
-            responsive: true,
-            legend: {
-              position: 'top',
-            },
-            title: {
-              display: true,
-              text: 'Aliexpress Sale '
-            }
-          }
+              scales: {
+                xAxes: [{
+                  display: false
+                }],
+                yAxes: [{
+                  display: false  
+                }]
+              },
+          },
+          
         });
-
-      }
-    });
-
-  });
-</script>
-
-{% endblock content %}
+      });
+    </script>
+{%endblock scripts%}
+{% comment %} end chart js script {% endcomment %}

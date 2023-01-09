@@ -7,7 +7,6 @@ from product import views
 app_name = "product"
 
 urlpatterns = [
-    path('sale-chart/', views.sale_chart, name='sale-chart'),
     path("", FilterView.as_view(filterset_class=ProductFilter,
         template_name='product/product_list.html'), name='product-list'),
     path("<slug>/", ProductDetailView.as_view(), name='product-detail'),

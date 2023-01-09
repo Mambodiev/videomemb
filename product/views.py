@@ -34,19 +34,6 @@ class ProductDetailView(generic.DetailView):
     queryset = Product.objects.all()
 
 
-def sale_chart(request):
-    labels = []
-    data = []
-
-    queryset = Sale.objects.values()
-    for entry in queryset:
-        labels.append(entry['month_name'])
-        data.append(entry['total_number_of_sale'])
-    
-    return JsonResponse(data={
-        'labels': labels,
-        'data': data,
-    })
 
 class VideoDetailView(generic.DetailView):
     template_name = "product/video_detail.html"
