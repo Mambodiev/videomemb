@@ -9,208 +9,67 @@
  <!-- =======================
 Main content START -->
 <section class="position-relative pt-0">
-  {% comment %} <div class="container">
-    <h1 class="card-title h3">{{ product.name}}</h1>
-    <div class="row">
-      <div class="col">
-        <div class="card card-img-scale rounded-0">
-          <img src="{{ product.thumbnail.url }}" alt="">
-        </div>
-      </div>
-      <div class="col">
-        <div class=" my-2">
-          <div class="card-body mb-4">
-              <div class="d-flex justify-content-around text-center">
-                <div class="col">
-                  <div class="text-xs font-weight-bold  mb-1">
-                      Likes
-                  </div>
-                  <div class="h5 mb-0 font-weight-bold text-gray-800">
-                    {{ product.likes|cool_num  }}
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="text-xs font-weight-bold  mb-1">
-                      Orders
-                  </div>
-                  <div class="h5 mb-0 font-weight-bold text-gray-800">
-                    {{ product.aliexpress_order|cool_num  }}
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="text-xs font-weight-bold  mb-1">
-                      Share
-                  </div>
-                  <div class="h5 mb-0 font-weight-bold text-gray-800">
-                    {{ product.share|cool_num  }}
-                  </div>
-                </div>
-              </div>
-          </div>
-          <div class="card-body mb-4">
-            <div class="d-flex justify-content-around text-center">
-              <div class="col">
-                <div class="text-xs font-weight-bold  mb-1">
-                    Profits
-                </div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                  ${{ product.get_margin  }}
-                </div>
-              </div>
-              <div class="col">
-                <div class="text-xs font-weight-bold  mb-1">
-                    Cost
-                </div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                  ${{ product.get_shopify  }}
-                </div>
-              </div>
-              <div class="col">
-                <div class="text-xs font-weight-bold  mb-1">
-                    Price
-                </div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                  ${{ product.get_aliexpres  }}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-body mb-4">
-              <div class="d-flex justify-content-around text-center">
-                <div class="col">
-                  <div class="text-xs font-weight-bold  mb-1">
-                      Sales
-                  </div>
-                  <div class="h5 mb-0 font-weight-bold text-gray-800">
-                    ${{ product.aliexpress_total_sale|cool_num  }}
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="text-xs font-weight-bold  mb-1">
-                      Stores 
-                  </div>
-                  <div class="h5 mb-0 font-weight-bold text-gray-800">
-                    {{ product.number_of_store_selling  }}
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="text-xs font-weight-bold  mb-1">
-                        Suppliers
-                  </div>
-                  <div class="h5 mb-0 font-weight-bold text-gray-800">
-                    {{ product.number_of_suppliers_selling  }}
-                  </div>
-                </div>
-              </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class=" my-2">
-        <canvas id="myChart" class='mb-4' width="100%" height="80%"></canvas> 
-        </div>
-      </div>
-    </div>
-  </div> {% endcomment %}
   <div class="container">
     <div class="row">
-      <div class="col-4">
+      <div class="col-sm-6 col-lg-5">
         <img src="{{ product.thumbnail.url }}" alt="">
       </div>
-      <div class="col-8">
-        <h1 class="card-title h4">{{ product.name}}</h1>
-        <div class="row">
-          <div class="col">
-            <div class=" my-2">
-              <div class="card-body mb-4 px-0">
-                  <div class="d-flex justify-content-around">
-                    <div class="col">
-                      <div class="text-xs font-weight-bold  mb-1">
-                          Likes
-                      </div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">
-                        {{ product.likes|cool_num  }}
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="text-xs font-weight-bold  mb-1">
-                          Orders
-                      </div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">
-                        {{ product.aliexpress_order|cool_num  }}
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="text-xs font-weight-bold  mb-1">
-                          Share
-                      </div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">
-                        {{ product.share|cool_num  }}
-                      </div>
-                    </div>
-                  </div>
-              </div>
-              <div class="card-body mb-4 px-0">
-                <div class="d-flex justify-content-around">
-                  <div class="col">
-                    <div class="text-xs font-weight-bold  mb-1">
-                        Profits
-                    </div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">
-                      ${{ product.get_margin  }}
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="text-xs font-weight-bold  mb-1">
-                        Cost
-                    </div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">
-                      ${{ product.get_aliexpres }}
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="text-xs font-weight-bold  mb-1">
-                        Price
-                    </div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">
-                      ${{ product.get_shopify }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body mb-4 px-0">
-                  <div class="d-flex justify-content-around">
-                    <div class="col">
-                      <div class="text-xs font-weight-bold  mb-1">
-                          Sales
-                      </div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">
-                        ${{ product.aliexpress_total_sale|cool_num  }}
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="text-xs font-weight-bold  mb-1">
-                          Stores 
-                      </div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">
-                        {{ product.number_of_store_selling  }}
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="text-xs font-weight-bold  mb-1">
-                            Suppliers
-                      </div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">
-                        {{ product.number_of_suppliers_selling  }}
-                      </div>
-                    </div>
-                  </div>
-              </div>
+      <div class="col-sm-6 col-lg-7">
+        <h1 class="card-title h4 mb-2">{{ product.name}}</h1>
+        <p>Posted {{ product.created_at|timesince }} </p>
+        <div class="row row-cols-2 row-cols-lg-3  g-lg-3">
+          <div class="col mb-2">
+            <div class="p-3 border">
+                Likes
+                <div class="fw-bold">{{ product.likes|cool_num  }}</div>
             </div>
           </div>
-          <div class="col">
-            <div class=" my-2">
-            <canvas id="myChart" width="100%" height="75%"></canvas> 
+          <div class="col mb-2">
+            <div class="p-3 border">
+                Orders
+                <div class="fw-bold">{{ product.aliexpress_order|cool_num  }}</div>
+            </div>
+          </div>
+          <div class="col mb-2">
+            <div class="p-3 border">
+                 Share
+                <div class="fw-bold">{{ product.share|cool_num  }}</div>
+            </div>
+          </div>
+          <div class="col mb-2">
+            <div class="p-3 border">
+                Profits
+                <div class="fw-bold">${{ product.get_margin  }}</div>
+            </div>
+          </div>
+          <div class="col mb-2">
+            <div class="p-3 border">
+                Cost
+                <div class="fw-bold">${{ product.get_aliexpres }}</div>
+            </div>
+          </div>
+          <div class="col mb-2">
+            <div class="p-3 border">
+                Price
+                <div class="fw-bold">${{ product.get_shopify }}</div>
+            </div>
+          </div>
+          <div class="col mb-2">
+            <div class="p-3 border">
+                Sales
+                <div class="fw-bold">${{ product.aliexpress_total_sale|cool_num  }}</div>
+            </div>
+          </div>
+          <div class="col mb-2">
+            <div class="p-3 border">
+                Stores
+                <div class="fw-bold">{{ product.number_of_store_selling  }}</div>
+            </div>
+          </div>
+          <div class="col mb-2">
+            <div class="p-3 border">
+                Suppliers
+                <div class="fw-bold">{{ product.number_of_suppliers_selling  }}</div>
             </div>
           </div>
         </div>
@@ -218,106 +77,37 @@ Main content START -->
     </div>
   </div>
 </section>
-	
 <section class="position-relative pt-0">
 	<div class="container">
 		<div class="row g-4">
-      <!-- Card item START -->
-      <div class="col-sm-6 col-lg-4">
-        <div class="card card-image-scale">
-            <!-- Card Image -->
-            <img src="{{ product.thumbnail.url }}" alt="">
-            <!-- Card Image overlay -->
-            <div class="card-img-overlay d-flex flex-column p-3 p-md-4"> 
-              <div>
-                <!-- Card category -->
-                <a href="#" class="badge bg-secondary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Business</a>
-              </div>
-              <div class="w-100 mt-auto">
-                <!-- Card title -->
-                <h4 class="text-secondary"><a href="post-single.html" class="btn-link text-reset stretched-link">5 intermediate guide to business</a></h4>
-                <!-- Card info -->
-                <ul class="nav nav-divider text-secondary-force align-items-center small">
-                  <li class="nav-item position-relative">
-                    <div class="nav-link">by <a href="#" class="stretched-link text-reset btn-link">Joan</a>
-                    </div>
-                  </li>
-                  <li class="nav-item">Jun 03, 2021</li>
-                </ul>
-              </div>
-            </div>
+      <div class="col-sm-6 col-lg-6">
+        <h4>Stores Selling <span class="badge bg-secondary rounded-circle">4</span></h4>
+          <a class="navbar-brand" href="#">
+            <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
+            Bootstrap
+          </a>
+      </div>
+      <div class="col-sm-6 col-lg-6">
+          <h4 class="card-title mb-2">Saturation</h4>
+          <div class="progress mb-2">
+            <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+          </div>
+          <div class="progress mb-2">
+            <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">50%</div>
+          </div>
+          <div class="progress mb-2">
+            <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">75%</div>
           </div>
       </div>
-      <!-- Card item END -->
-      <!-- Card item START -->
-      <div class="col-sm-6 col-lg-4">
+      <div class="col-sm-6 col-lg-6">
         <div class="card card-image-scale">
-          <!-- Card Image -->
           <img src="{{ product.thumbnail.url }}" alt="">
-          <!-- Card Image overlay -->
           <div class="card-img-overlay d-flex flex-column p-3 p-md-4"> 
             <div>
-              <!-- Card category -->
-              <a href="#" class="badge bg-secondary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Business</a>
-            </div>
-            <div class="w-100 mt-auto">
-              <!-- Card title -->
-              <h4 class="text-secondary"><a href="post-single.html" class="btn-link text-reset stretched-link">5 intermediate guide to business</a></h4>
-              <!-- Card info -->
-              <ul class="nav nav-divider text-secondary-force align-items-center small">
-                <li class="nav-item position-relative">
-                  <div class="nav-link">by <a href="#" class="stretched-link text-reset btn-link">Joan</a>
-                  </div>
-                </li>
-                <li class="nav-item">Jun 03, 2021</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Card item END -->
-      <!-- Card item START -->
-      <div class="col-sm-6 col-lg-4">
-        <div class="card card-image-scale">
-            <!-- Card Image -->
-            <img src="{{ product.thumbnail.url }}" alt="">
-            <!-- Card Image overlay -->
-            <div class="card-img-overlay d-flex flex-column p-3 p-md-4"> 
-              <div>
-                <!-- Card category -->
-                <a href="#" class="badge bg-secondary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Business</a>
-              </div>
-              <div class="w-100 mt-auto">
-                <!-- Card title -->
-                <h4 class="text-secondary"><a href="post-single.html" class="btn-link text-reset stretched-link">5 intermediate guide to business</a></h4>
-                <!-- Card info -->
-                <ul class="nav nav-divider text-secondary-force align-items-center small">
-                  <li class="nav-item position-relative">
-                    <div class="nav-link">by <a href="#" class="stretched-link text-reset btn-link">Joan</a>
-                    </div>
-                  </li>
-                  <li class="nav-item">Jun 03, 2021</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-      </div>
-      <!-- Card item END -->
-      <!-- Card item START -->
-      <div class="col-sm-6 col-lg-4">
-        <div class="card card-image-scale">
-          <!-- Card Image -->
-          <img src="{{ product.thumbnail.url }}" alt="">
-          <!-- Card Image overlay -->
-          <div class="card-img-overlay d-flex flex-column p-3 p-md-4"> 
-            <div>
-              <!-- Card category -->
               <a href="#" class="badge bg-info mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Covid-19</a>
             </div>
             <div class="w-100 mt-auto">
-              <!-- Card title -->
               <h4 class="text-secondary"><a href="post-single.html" class="btn-link text-reset stretched-link">Ten questions you should answer truthfully.</a></h4>
-              <!-- Card info -->
               <ul class="nav nav-divider text-secondary-force align-items-center small">
                 <li class="nav-item position-relative">
                   <div class="nav-link">by <a href="#" class="stretched-link text-reset btn-link">Billy</a>
@@ -329,14 +119,13 @@ Main content START -->
           </div>
         </div>
       </div>
-      <!-- Card item END -->
-    </div> <!-- Row end -->
+    </div> 
 	</div>
 </section>
 {% endblock content %}
 
 {% comment %} chart js script {% endcomment %}    
-{%block scripts%}
+{% comment %} {%block scripts%}
     <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'assets/js/Chart-2.8.0.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'assets/css/Chart-2.8.0.min.css' %}"/>
@@ -385,5 +174,13 @@ Main content START -->
         });
       });
     </script>
-{%endblock scripts%}
+{%endblock scripts%} {% endcomment %}
 {% comment %} end chart js script {% endcomment %}
+
+          {% comment %} 
+            <div class="col">
+              <div class=" my-2">
+              <canvas id="myChart" width="100%" height="75%"></canvas> 
+              </div>
+            </div> 
+          {% endcomment %}

@@ -300,9 +300,9 @@ class Product(models.Model):
         ('ec-cube', 'EC-CUBE'),
     ]
    
-   
+    store_domaine_url = models.CharField(max_length=1100,blank=False, unique=True)
     name = models.CharField(max_length=100)
-    description = models.TextField(blank=True, null=True)
+    # description = models.TextField(blank=True, null=True)
     slug = models.SlugField(unique=True)
     thumbnail = models.ImageField(upload_to="thumbnails/", default='products/defaut_image_store_light_blue_bag.jpg')
     image_store = models.ImageField(upload_to="image_store/",default='products/defaut_image_store.png',
@@ -317,7 +317,6 @@ class Product(models.Model):
     shopify_price = models.IntegerField(default=0,blank=True, null=True, help_text = "Product price from shopify")
     aliexpress_price = models.IntegerField(default=0, help_text = "Product price from aliexpress")
     price_margin = models.IntegerField(default=0,blank=True, null=True, help_text = "Profit you get from this product")
-    aliexpress_url = models.URLField(blank=True)
     product_vimeo_id = models.CharField(max_length=50, blank=True, null=True,) 
     last_seen = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -386,6 +385,43 @@ class Sale(models.Model):
 
     def __str__(self):
         return f' ({self.product.name}), {self.total_number_of_sale}'
+
+
+class Product_insight(models.Model):
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    text = models.TextField(blank=True, null=True, help_text = "Insight text about product")
+    time = models.DateTimeField(auto_now_add=True)
+    is_green = models.BooleanField(default=False, help_text = "Icon about product insight this can be green check or red cross")
+
+
+    class Meta:
+        ordering = ['-time']
+
+    def __str__(self):
+        return f' ({self.product.name}), {self.text}'
+
+
+class Store_selling_product(models.Model):
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    image_store_location = models.ImageField(upload_to="store_location/", default='products/store_location.png', help_text = "flag of store country")
+    url_store_selling = models.URLField(max_length=1200,)
+    url_ads_store_selling = models.URLField(max_length=1200,)
+    time = models.DateTimeField(auto_now_add=True)
+    is_faceBook = models.BooleanField(default=True)
+    is_instagram = models.BooleanField(default=False)
+    is_tiktok = models.BooleanField(default=False)
+    
+
+
+
+    class Meta:
+        ordering = ['-time']
+
+    def __str__(self):
+        return f' ({self.product.name}), {self.url_store_selling}'
+
 
         
 class Video(models.Model):
